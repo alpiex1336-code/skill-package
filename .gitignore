@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Editor / local workspace noise
+.vscode/
+.idea/
+*.swp
+*.tmp
+
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
