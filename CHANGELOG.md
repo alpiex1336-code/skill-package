@@ -2,6 +2,10 @@
 
 All notable changes to this skill package should be documented here.
 
+## Unreleased
+
+- README: add **Brief workflow** (eight-step onboarding summary), link to `SKILL.md` Workflow, SSH clone option, and streamlined Usage pointers after meta-orchestra review.
+
 ## 0.1.0 - 2026-05-17
 
 - Initial public package layout for `prompt-upgrade`.

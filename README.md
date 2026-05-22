@@ -27,6 +27,12 @@ Clone or copy this repository into your Cursor skills directory so the folder na
 git clone https://github.com/alpiex1336-code/skill-package.git ~/.cursor/skills/prompt-upgrade
 ```
 
+If you use SSH keys with GitHub:
+
+```sh
+git clone git@github.com:alpiex1336-code/skill-package.git ~/.cursor/skills/prompt-upgrade
+```
+
 If you clone elsewhere, copy or symlink the five skill markdown files into `~/.cursor/skills/prompt-upgrade/`. Keep `SKILL.md` at the folder root; the companion references use relative links.
 
 ## How the skill thinks
@@ -41,14 +47,29 @@ For broad prompts, **Deep-upgrade** adds a procedural floor: cited research wher
 
 For skill-package changes, the same logic turns inward. The agent must read the package, run a meta-orchestra, integrate findings into `theme_key`s, apply the Work Filter, edit only what passes, verify, and stop on clear saturation signals.
 
+## Brief workflow
+
+This section is the onboarding summary. The authoritative macro sequence and stop rules live in [`SKILL.md`](SKILL.md) (**Workflow**, steps 1–8).
+
+Every engagement follows the same macro sequence:
+
+1. **Understand** — Choose `improvement_mode` (`normal` vs `thorough`), read the artifact in scope, define success criteria and the north-star invariant, and build a target coverage set so later passes stay aimed, not random.
+2. **Research** — When the Snapshot is thin, fill gaps with cited standards, docs, and public patterns (not invented context).
+3. **Orchestrate** — Run one or more Stochastic Role Orchestra waves: sample composed roles (`[Slot A][Slot B]`, optional `[Slot C]`), merge raw findings into `theme_key` rows, and adopt only what passes the Work Filter.
+4. **Prioritize** — Order work by severity and dependency (blockers and trust risks first), using the action register in `reference-workflow-registers.md`.
+5. **Implement** — Ship integrated quintessence actions; prefer minimal scoped diffs that match existing conventions.
+6. **Verify** — Run project-standard checks when available; otherwise state honest manual verification and what was not exercised.
+7. **Self-review** — Re-read changes and challenge prior conclusions; add another orchestra wave only when it could surface a distinct failure mode.
+8. **Stop** — End when verification holds and further waves would repeat the same themes; close decisively without filler prompts.
+
+**Mode scales depth:** `normal` keeps waves short and changes localized inside the current product shape; `thorough` authorizes broader reshaping (UI, performance, structure) while preserving the north-star invariant. If the user is making or changing a product and mode is unclear, the agent asks once before heavy orchestration.
+
 ## Usage
 
-The skill is designed to be default-on. At the start of a task, read `SKILL.md` and follow its read order. In short:
+The skill is **default-on**: read `SKILL.md` top-to-bottom on first use (see **Read order (cold start)** in that file). Use **Brief workflow** above for the eight-step macro path; use **How the skill thinks** for mode selection, the orchestra, and coverage.
 
-- If the user makes `normal` identifiable with a small/narrow task, use `normal` or a scaled-down execution path.
-- If the user makes `thorough` identifiable with whole-product, all-aspects, or maximum optimization language, use `thorough` and the Deep-upgrade procedural tier.
-- If the user is making or changing a product and the mode is not identifiable, ask once and wait.
-- For edits to this skill package, run the skill on itself: read, run a meta-orchestra, integrate by `theme_key`, apply the Work Filter, edit, verify, and stop only on clear saturation signals.
+- **Product work:** follow the workflow; scale depth with `normal` vs `thorough` as described in **Brief workflow**.
+- **Edits to this package:** run recursive self-application—read the package, meta-orchestra, integrate by `theme_key`, Work Filter, edit, verify, stop on saturation (see **Recursive self-application** in `SKILL.md`).
 
 ## Tool availability
 
