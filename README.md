@@ -2,6 +2,8 @@
 
 `prompt-upgrade` is a Cursor Agent Skill for intent-based prompt handling, multi-role orchestration, recursive self-review, and evidence-grounded product or document improvement. It is Cursor-first, but the markdown contract is portable as a process document for other agent hosts.
 
+**Status:** stable — this package is complete; no further updates are planned.
+
 Use it when you want an agent to move beyond a single generic reviewer voice. The skill teaches the assistant to identify the user's intent, choose an appropriate depth, sample multiple composed review roles, merge their findings into actionable `theme_key`s, verify what actually changed, and stop only when the scoped work reaches honest saturation.
 
 ## Why try it
