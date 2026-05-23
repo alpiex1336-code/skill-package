@@ -2,7 +2,7 @@
 
 `prompt-upgrade` is a Cursor Agent Skill for intent-based prompt handling, multi-role orchestration, recursive self-review, and evidence-grounded product or document improvement. It is Cursor-first, but the markdown contract is portable as a process document for other agent hosts.
 
-**Status:** stable — this package is complete; no further updates are planned.
+**Latest release:** [v1.1.0](https://github.com/alpiex1336-code/skill-package/releases/tag/v1.1.0) — adds **NON-NEGOTIABLE EXECUTION GATES** so agents must run runtime subagents and maintain an in-session wave ledger before Implement.
 
 Use it when you want an agent to move beyond a single generic reviewer voice. The skill teaches the assistant to identify the user's intent, choose an appropriate depth, sample multiple composed review roles, merge their findings into actionable `theme_key`s, verify what actually changed, and stop only when the scoped work reaches honest saturation.
 
@@ -11,11 +11,12 @@ Use it when you want an agent to move beyond a single generic reviewer voice. Th
 - It gives broad requests a repeatable structure: understand the artifact, research weak dimensions, run a Stochastic Role Orchestra, prioritize, implement, verify, self-review, and stop.
 - It keeps small requests lightweight. Narrow fixes, small talk, and single-concern changes can use `normal` or a scaled-down path instead of forcing expensive orchestration.
 - It makes whole-product or all-aspects improvement explicit. When a prompt signals maximum breadth, the skill pins `thorough`, runs the Deep-upgrade procedural tier, and tracks skipped tools or substitute verification in a ledger.
-- It reduces agent drift by requiring evidence, Work Filter adoption, and recursive self-application before non-trivial edits to the skill package itself.
+- **v1.1+:** It blocks the common agent failure mode of reading the skill then implementing solo—**Execution gates**, **PRE-FLIGHT**, and **in-session wave ledger** requirements are contract-level, not optional philosophy.
 
 ## What is included
 
 - `SKILL.md` - the authoritative contract. If companion files conflict with it, fix `SKILL.md` first.
+- `reference-execution-gates.md` - **Task tool patterns**, gate checklists, wave ledger templates, simulated-fallback scripts (load when passing Gate 1 or Gate 3).
 - `reference-word-banks.md` - Slot A / Slot B / optional Slot C role banks plus P0 / P1 / P2 sampling guidance.
 - `reference-depth-domains.md` - domain coverage maps for web, mobile, games, APIs, AI, operations, compliance, and adjacent product classes.
 - `reference-workflow-registers.md` - action-register fields, severity, risk-triggered audits, stop rules, and final-response mapping.
@@ -35,7 +36,29 @@ If you use SSH keys with GitHub:
 git clone git@github.com:alpiex1336-code/skill-package.git ~/.cursor/skills/prompt-upgrade
 ```
 
-If you clone elsewhere, copy or symlink the five skill markdown files into `~/.cursor/skills/prompt-upgrade/`. Keep `SKILL.md` at the folder root; the companion references use relative links.
+If you clone elsewhere, copy or symlink the six skill markdown files into `~/.cursor/skills/prompt-upgrade/`. Keep `SKILL.md` at the folder root; the companion references use relative links.
+
+To update an existing install:
+
+```sh
+cd ~/.cursor/skills/prompt-upgrade
+git pull origin main
+# or copy the six .md files from a fresh clone
+```
+
+## Execution gates (v1.1+)
+
+Before any **Implement**-phase artifact write, agents must pass **NON-NEGOTIABLE EXECUTION GATES** in `SKILL.md`:
+
+| Gate | Requirement |
+|------|-------------|
+| **0** | Skip orchestration only for trivial single-step or single-axis narrow scope |
+| **1** | **Orchestra wave** with **≥2 composed role labels**; **runtime subagents** via Task tool when available |
+| **2** | **integrate → adopt** (Work Filter) into **Quintessence row**s before edits |
+| **3** | Prefer one runtime subagent per adopted theme at Implement |
+| **4** | **Wave ledger** started in-session—not deferred to the final reply |
+
+Complete **PRE-FLIGHT** (same file) before the first file write. Operational templates live in `reference-execution-gates.md`.
 
 ## How the skill thinks
 
@@ -51,16 +74,16 @@ For skill-package changes, the same logic turns inward. The agent must read the 
 
 ## Brief workflow
 
-This section is the onboarding summary. The authoritative macro sequence and stop rules live in [`SKILL.md`](SKILL.md) (**Workflow**, steps 1–8).
+This section is the onboarding summary. The authoritative macro sequence and stop rules live in [`SKILL.md`](SKILL.md) (**Workflow**, steps 1–8). **Read NON-NEGOTIABLE EXECUTION GATES first** on cold start.
 
 Every engagement follows the same macro sequence:
 
 1. **Understand** — Choose `improvement_mode` (`normal` vs `thorough`), read the artifact in scope, define success criteria and the north-star invariant, and build a target coverage set so later passes stay aimed, not random.
 2. **Research** — When the Snapshot is thin, fill gaps with cited standards, docs, and public patterns (not invented context).
-3. **Orchestrate** — Run one or more Stochastic Role Orchestra waves: sample composed roles (`[Slot A][Slot B]`, optional `[Slot C]`), merge raw findings into `theme_key` rows, and adopt only what passes the Work Filter.
+3. **Orchestrate** — Pass **Gate 1**: run Stochastic Role Orchestra waves with **runtime subagents** when Task is available; merge into `theme_key` rows; adopt via Work Filter (**Gate 2**).
 4. **Prioritize** — Order work by severity and dependency (blockers and trust risks first), using the action register in `reference-workflow-registers.md`.
-5. **Implement** — Ship integrated quintessence actions; prefer minimal scoped diffs that match existing conventions.
-6. **Verify** — Run project-standard checks when available; otherwise state honest manual verification and what was not exercised.
+5. **Implement** — **Gates 2–3**: ship Quintessence rows only; delegate per theme when tooling allows; self-audit `Orchestra gate: PASS | FAIL` before first edit.
+6. **Verify** — Run project-standard checks when available; record verification in **wave ledger** (**Gate 4**).
 7. **Self-review** — Re-read changes and challenge prior conclusions; add another orchestra wave only when it could surface a distinct failure mode.
 8. **Stop** — End when verification holds and further waves would repeat the same themes; close decisively without filler prompts.
 
@@ -68,14 +91,14 @@ Every engagement follows the same macro sequence:
 
 ## Usage
 
-The skill is **default-on**: read `SKILL.md` top-to-bottom on first use (see **Read order (cold start)** in that file). Use **Brief workflow** above for the eight-step macro path; use **How the skill thinks** for mode selection, the orchestra, and coverage.
+The skill is **default-on**: read **NON-NEGOTIABLE EXECUTION GATES** and **Read order (cold start)** in `SKILL.md` on first use.
 
-- **Product work:** follow the workflow; scale depth with `normal` vs `thorough` as described in **Brief workflow**.
-- **Edits to this package:** run recursive self-application—read the package, meta-orchestra, integrate by `theme_key`, Work Filter, edit, verify, stop on saturation (see **Recursive self-application** in `SKILL.md`).
+- **Product work:** complete **PRE-FLIGHT**, pass Gates 1–4, then follow the eight-step workflow; scale depth with `normal` vs `thorough`.
+- **Edits to this package:** run recursive self-application—same gates apply before line edits (see **Recursive self-application** in `SKILL.md`).
 
 ## Tool availability
 
-The skill names optional tools such as runtime subagents, MCP servers, browser automation, Lighthouse-class audits, and GitHub-related tools. Those references do not install or grant access to those tools. If a tool is unavailable, omit that Slot C capability, record the substitute path, and continue with available means until the normal stop rules apply.
+The skill names optional tools such as runtime subagents (Cursor **Task** tool), MCP servers, browser automation, Lighthouse-class audits, and GitHub-related tools. Those references do not install or grant access. If Task is unavailable, use **Simulated fallback** and record why in the wave ledger—never skip both runtime and simulated orchestra.
 
 ## Governance and safety
 
@@ -84,6 +107,12 @@ This package is process guidance, not legal, medical, financial, security, or co
 ## Versioning
 
 Changes to `SKILL.md` wording can change agent behavior. Treat contract-level changes as versioned releases and record them in `CHANGELOG.md`. Companion reference additions that only expand coverage can usually be minor changes.
+
+| Version | Summary |
+|---------|---------|
+| **1.1.0** | Execution gates, PRE-FLIGHT, failure-mode hard stops, `reference-execution-gates.md` |
+| **1.0.0** | Initial stable public package |
+| **0.1.0** | First public layout |
 
 ## License
 
