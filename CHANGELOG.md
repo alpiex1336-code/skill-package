@@ -2,6 +2,22 @@
 
 All notable changes to this skill package should be documented here.
 
+## 1.2.0 - 2026-07-04
+
+### Added
+
+- **Slot D — installed Agent Skills** — optional fourth composed-role slot for installed, fully-read Cursor Agent Skills that can guide a pass without becoming a second controller.
+- **Skill guideline requirement** — before attaching Slot D, agents must read the full skill file and record `use for` / `when to use` guidance.
+- **Independent acceptance scoring loop** — non-trivial skill-package edits and thorough/deep-upgrade work now use a fresh evaluator and a `>=90/100` per-dimension target, bounded by Work Filter and saturation stop rules.
+- **External roster governance** — external role rosters are vocabulary mines, not execution checklists; useful entries become deduped Slot A/B tokens.
+
+### Changed
+
+- Strengthened runtime prompt packets with purpose, capability boundary, Snapshot context, relevant skill instructions, evidence hooks, output contract, and Slot D guidelines when applicable.
+- Split optional capabilities clearly: **Slot C** for tools/MCP/plugins/hooks, **Slot D** for installed skill instruction packages.
+- Expanded `reference-word-banks.md` with Laravel/Livewire/Filament admin, smart-contract, codebase-onboarding, and agentic-optimization coverage tokens.
+- Updated stop-rule guidance so low scores trigger another subagent process only when a new Work Filter-passing `theme_key` appears.
+
 ## 1.1.0 - 2026-05-23
 
 ### Added

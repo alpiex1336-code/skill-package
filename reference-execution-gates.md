@@ -41,10 +41,13 @@ See [reference-workflow-registers.md](reference-workflow-registers.md) *Orchestr
 Launch **independent** subagents in **one parent message** (parallel tool calls). Each prompt **must** include:
 
 1. **Composed label** as persona: `[Slot A][Slot B]`
-2. **Snapshot** summary (artifact, constraints, mode)
-3. **Domain of strength** — one aspect class to stress
-4. **Output contract** — tagged bullets only; bounded findings; no implementation unless asked
-5. **Return** — findings + `theme_key` suggestions
+2. **Purpose / why launched** — what this pass should protect or discover
+3. **Capability boundary** — the aspect class or domain of strength to stress
+4. **Snapshot context packet** — artifact, relevant files / URLs / excerpts, mode, constraints, known unknowns
+5. **Relevant skill instructions** — gates, Work Filter, companion references, domain notes, and Slot D skill guideline(s) that apply to this pass
+6. **Evidence hooks** — facts, checks, routes, standards, or snippets the subagent should anchor to
+7. **Output contract** — tagged bullets only; bounded findings; no implementation unless asked
+8. **Return** — findings + `theme_key` suggestions + verification gaps
 
 **Example prompt skeleton:**
 
@@ -52,12 +55,26 @@ Launch **independent** subagents in **one parent message** (parallel tool calls)
 You are [privacy-first, offline-advocate][security champion] reviewing <artifact>.
 
 MODE: thorough | SCOPE: <one line>
+Purpose: find privacy / local-data risks before integration.
+Capability boundary: stress ONLY local data handling, API key storage, OCR privacy.
 
-Stress ONLY: local data handling, API key storage, OCR privacy.
+Snapshot context:
+- Artifact / files: <paths or pasted excerpt summary>
+- Constraints: <user constraints, north-star invariant, non-goals>
+- Known unknowns: <what is not in context>
+
+Relevant skill instructions:
+- Use Work Filter; propose only non-redundant, scoped findings.
+- Do not implement; this is Gate 1 review input.
+- If Slot D is attached, include the read-derived skill guideline (`use for` + `when to use`) and do not rely on unread skills.
+
+Evidence hooks:
+- Cite exact observed file/section, command output, screenshot, or missing evidence.
 
 Return:
 - 3–8 numbered findings tagged [privacy-first, offline-advocate][security champion]
 - Suggested theme_keys for integration
+- Verification gaps or checks that would confirm/reject the finding
 - Do NOT implement; do NOT merge other roles' views
 ```
 
@@ -92,14 +109,45 @@ Before any in-scope artifact file write:
 
 ### Per-theme prompt skeleton
 
+Each Gate 3 prompt implements **one accepted `theme_key`** unless batching is explicitly recorded in the ledger. Prompts must include purpose, context packet, role capability, relevant skill instructions, constraints, evidence hooks, verification expectation, and a strict **no-cross-theme / no-synthesis** boundary.
+
 ```markdown
 You are [implementation-focused][<stance matching theme>] implementing ONE theme only.
 
 theme_key: <id>
 Accepted action: <one line from register>
-Constraints: minimal diff, match repo conventions, north-star invariant: <line>
+Purpose: implement the accepted row because <why this row passed Work Filter>.
+Role capability: <why this stance is suited to this row; one domain boundary>
 
-Implement ONLY this theme. Return: files changed, verification run, gaps.
+Snapshot context:
+- Artifact / files: <paths, snippets, current behavior, relevant constraints>
+- Prior accepted evidence: <role findings or references that justified this row>
+- Known unknowns: <what not to assume>
+
+Relevant skill instructions:
+- Preserve Work Filter, north-star invariant, Snapshot honesty.
+- Apply only Gate 3 for this theme; do not re-run synthesis.
+- If Slot D is attached, include the read-derived skill guideline and apply it only within this accepted `theme_key`.
+
+Constraints:
+- Minimal scoped diff; match repo/document conventions.
+- North-star invariant: <line>
+- No unrelated files; no new doctrine section unless accepted action requires it.
+
+Evidence hooks:
+- Re-read changed areas; preserve named vocabulary and anchors.
+- Verification expectation: <command, static read, link check, or manual review>
+
+Boundaries:
+- Implement ONLY this theme_key.
+- Do NOT merge other theme_keys.
+- Do NOT synthesize new governance direction; if you find a new theme, report it as a proposed follow-up instead of editing it.
+
+Return:
+- Files changed
+- Summary of exact edits
+- Verification run / not run
+- Gaps, residual risk, or proposed new theme_key if discovered
 ```
 
 ### Batching rules

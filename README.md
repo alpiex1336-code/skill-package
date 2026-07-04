@@ -2,7 +2,7 @@
 
 `prompt-upgrade` is a Cursor Agent Skill for intent-based prompt handling, multi-role orchestration, recursive self-review, and evidence-grounded product or document improvement. It is Cursor-first, but the markdown contract is portable as a process document for other agent hosts.
 
-**Latest release:** [v1.1.0](https://github.com/alpiex1336-code/skill-package/releases/tag/v1.1.0) — adds **NON-NEGOTIABLE EXECUTION GATES** so agents must run runtime subagents and maintain an in-session wave ledger before Implement.
+**Latest release:** [v1.2.0](https://github.com/alpiex1336-code/skill-package/releases/tag/v1.2.0) — adds Slot D for installed Agent Skills, strengthens prompt packets, and expands honest stop / scoring governance.
 
 Use it when you want an agent to move beyond a single generic reviewer voice. The skill teaches the assistant to identify the user's intent, choose an appropriate depth, sample multiple composed review roles, merge their findings into actionable `theme_key`s, verify what actually changed, and stop only when the scoped work reaches honest saturation.
 
@@ -12,12 +12,13 @@ Use it when you want an agent to move beyond a single generic reviewer voice. Th
 - It keeps small requests lightweight. Narrow fixes, small talk, and single-concern changes can use `normal` or a scaled-down path instead of forcing expensive orchestration.
 - It makes whole-product or all-aspects improvement explicit. When a prompt signals maximum breadth, the skill pins `thorough`, runs the Deep-upgrade procedural tier, and tracks skipped tools or substitute verification in a ledger.
 - **v1.1+:** It blocks the common agent failure mode of reading the skill then implementing solo—**Execution gates**, **PRE-FLIGHT**, and **in-session wave ledger** requirements are contract-level, not optional philosophy.
+- **v1.2+:** It separates optional capabilities into Slot C for tools/MCP/plugins and Slot D for installed, fully-read Agent Skills that provide extra task guidance without overriding `prompt-upgrade`.
 
 ## What is included
 
 - `SKILL.md` - the authoritative contract. If companion files conflict with it, fix `SKILL.md` first.
 - `reference-execution-gates.md` - **Task tool patterns**, gate checklists, wave ledger templates, simulated-fallback scripts (load when passing Gate 1 or Gate 3).
-- `reference-word-banks.md` - Slot A / Slot B / optional Slot C role banks plus P0 / P1 / P2 sampling guidance.
+- `reference-word-banks.md` - Slot A / Slot B / optional Slot C tool surfaces / optional Slot D installed-skill guidance plus P0 / P1 / P2 sampling guidance.
 - `reference-depth-domains.md` - domain coverage maps for web, mobile, games, APIs, AI, operations, compliance, and adjacent product classes.
 - `reference-workflow-registers.md` - action-register fields, severity, risk-triggered audits, stop rules, and final-response mapping.
 - `reference-platforms-extended.md` - optional tool-class/vendor examples; not an endorsement or required checklist.
@@ -96,9 +97,9 @@ The skill is **default-on**: read **NON-NEGOTIABLE EXECUTION GATES** and **Read 
 - **Product work:** complete **PRE-FLIGHT**, pass Gates 1–4, then follow the eight-step workflow; scale depth with `normal` vs `thorough`.
 - **Edits to this package:** run recursive self-application—same gates apply before line edits (see **Recursive self-application** in `SKILL.md`).
 
-## Tool availability
+## Tool and skill availability
 
-The skill names optional tools such as runtime subagents (Cursor **Task** tool), MCP servers, browser automation, Lighthouse-class audits, and GitHub-related tools. Those references do not install or grant access. If Task is unavailable, use **Simulated fallback** and record why in the wave ledger—never skip both runtime and simulated orchestra.
+The skill names optional tools such as runtime subagents (Cursor **Task** tool), MCP servers, browser automation, Lighthouse-class audits, and GitHub-related tools. It can also name optional installed Agent Skills via Slot D after their full `SKILL.md` has been read and summarized into a short `use for` / `when to use` guideline. Those references do not install or grant access. If Task is unavailable, use **Simulated fallback** and record why in the wave ledger—never skip both runtime and simulated orchestra.
 
 ## Governance and safety
 
@@ -110,6 +111,7 @@ Changes to `SKILL.md` wording can change agent behavior. Treat contract-level ch
 
 | Version | Summary |
 |---------|---------|
+| **1.2.0** | Slot D installed-skill guidance, read-before-use rules, prompt packet strengthening, scoring loop governance |
 | **1.1.0** | Execution gates, PRE-FLIGHT, failure-mode hard stops, `reference-execution-gates.md` |
 | **1.0.0** | Initial stable public package |
 | **0.1.0** | First public layout |

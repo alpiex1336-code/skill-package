@@ -1,6 +1,6 @@
 # Prompt Upgrade — reference word banks (English)
 
-Use these lists to **sample Slot A (lens)** and **Slot B (stance)** when running the Stochastic Role Orchestra—plus **Slot C (optional)** for **tool / MCP / plugin / hook** surfaces when (and only when) they are **actually available** in the session. Each composed label is at least **`[Slot A][Slot B]`**; add **`[Slot C]`** only when justified by task fit **and** confirmed capability—see **Slot C** section below. For definitions of *snapshot*, *theme_key*, *orchestra wave*, see **Lexicon** in `SKILL.md`. For **how** `SKILL.md` text stays **precise**, **clear**, and **aligned** with YAML and triggers (AI / indexer discoverability), see **Language policy** → *Precision, clarity, and discoverability* in `SKILL.md`. For **how many roles**, **merge overlaps** (`theme_key`), **priority tiers (P0 / P1 / P2)**, and **when to stop**, see **Execution contract** and **Convergence** in `SKILL.md`, and the section **Priority tiers** below. Different titles and lenses imply different **domains of strength** (what that subagent should stress—security, copy, audio, deploy, etc.). Treat banks as expandable memory: add domain-specific terms as products diversify. **Keep new entries in English** for searchability; describe locale expertise with plain phrases (`CJK typography`, `RTL layout`, `diacritic sorting`).
+Use these lists to **sample Slot A (lens)** and **Slot B (stance)** when running the Stochastic Role Orchestra—plus **Slot C (optional)** for **tool / MCP / plugin / hook** surfaces and **Slot D (optional)** for **installed Cursor Agent Skill** instruction packages when (and only when) they are **actually available** in the session. Each composed label is at least **`[Slot A][Slot B]`**; add **`[Slot C]`** only when justified by task fit **and** confirmed tool capability; add **`[Slot D]`** only after the skill is installed, fully read, guideline-recorded, and relevant—see **Slot C** and **Slot D** sections below. For definitions of *snapshot*, *theme_key*, *orchestra wave*, see **Lexicon** in `SKILL.md`. For **how** `SKILL.md` text stays **precise**, **clear**, and **aligned** with YAML and triggers (AI / indexer discoverability), see **Language policy** → *Precision, clarity, and discoverability* in `SKILL.md`. For **how many roles**, **merge overlaps** (`theme_key`), **priority tiers (P0 / P1 / P2)**, and **when to stop**, see **Execution contract** and **Convergence** in `SKILL.md`, and the section **Priority tiers** below. Different titles and lenses imply different **domains of strength** (what that subagent should stress—security, copy, audio, deploy, etc.). Treat banks as expandable memory: add domain-specific terms as products diversify. **Keep new entries in English** for searchability; describe locale expertise with plain phrases (`CJK typography`, `RTL layout`, `diacritic sorting`).
 
 ## Slot A — lens / modifier / property (how to look)
 
@@ -66,7 +66,7 @@ Slot C names **tools, MCP servers, IDE plugins, CLI hooks, or integrations** tha
 
 **Design / product:** Figma, Figma plugin, Figma MCP, FigJam
 
-**Editor / agent host:** Cursor, VS Code, Cursor Rules, `.cursor/hooks`, Agent Skills
+**Editor / agent host:** Cursor, VS Code, Cursor Rules, `.cursor/hooks`
 
 **Repos / CI:** GitHub, GitHub MCP, GitHub Actions, GitHub CLI (`gh`), GitLab, GitLab MCP, Bitbucket
 
@@ -92,12 +92,36 @@ Slot C names **tools, MCP servers, IDE plugins, CLI hooks, or integrations** tha
 
 Pair Slot C with roles that benefit: UI craft + **Figma**; repo audit + **GitHub MCP**; incidents + **PagerDuty**; hosted DB + **Supabase** / **Neon**—**only** if present.
 
+## Slot D — installed Cursor Agent Skills (optional)
+
+Slot D names **installed skill instruction packages** that may guide a pass. It is not a persona and not a callable tool. Use exact skill names or paths from the active environment, and only after reading the full `SKILL.md` in this session.
+
+### Read-before-use rule
+
+- **Never** attach a Slot D token from memory, a prior session, a GitHub repository name, or a skill that is merely suggested but not installed.
+- **Before** relying on a Slot D skill, read the whole skill file and record a short guideline: `use for: <what it helps with>; when to use: <trigger / scope>`.
+- Installed is necessary, not sufficient: attach Slot D only when the guideline fits the current pass.
+- Slot D skills are subordinate to `prompt-upgrade`: they can add domain procedure, but they do **not** override mode selection, orchestra gates, Work Filter, MCP schema checks, system/developer instructions, or user constraints.
+- If a user-added skill is missing, unread, or irrelevant in the current session, omit Slot D and disclose the skipped / downgraded path when material.
+
+### User-added Slot D entries
+
+Users may add entries over time. Keep each entry short and exact:
+
+```markdown
+- `skill-name-or-path` — use for: <short purpose>; when to use: <short trigger>. Source: installed skill read in-session.
+```
+
+Example format only: `ui-ux-pro-max` may be a Slot D token **only** if that exact skill is installed and fully read first; otherwise omit it.
+
 ## Combination patterns
 
 - Two-part (default): `[meticulous][sound designer]`
 - Multi-slot A: `[offline-first, latency-sensitive][SRE]`
 - Multi-slot B: `[skeptical][linguist, translator]`
 - **Three-part (optional Slot C, tools only when available):** `[visual-first][webpage designer][Figma]` — omit `[Slot C]` if no tool attachment or tool missing.
+- **Three-part (optional Slot D, installed skill only when read):** `[visual-first][UI designer][ui-ux-pro-max]` — omit `[Slot D]` if the skill is missing, unread, or not relevant.
+- **Four-part (optional Slot C + Slot D):** `[visual-first][UI designer][Figma][ui-ux-pro-max]` — valid only when both availability rules pass.
 - Stack multiple lenses only when they stay orthogonal; avoid three synonyms for “careful.”
 - Skill self-review / trigger tuning: `[discovery-first, trigger-aligned][expert AI keyword engineer]` or `[taxonomy-minded][taxonomy writer for AI discovery]` against `SKILL.md` YAML and headings.
 
@@ -106,7 +130,7 @@ Pair Slot C with roles that benefit: UI craft + **Figma**; repo audit + **GitHub
 - Prefer **orthogonal** pairs (different channels) across a pass to reduce redundancy.
 - **Push role count up** while each new draw still tends to add a **new failure mode** or **thin coverage axis**; **do not** treat “sampled a few roles” as done when **thorough** intent and stop rules still warrant more—then **merge** and **filter** aggressively so volume of roles does not become volume of churn.
 - After several draws, check coverage gaps against the **target coverage set** and **P0 / P1 tiers** in [Priority tiers (P0 / P1 / P2)](#priority-tiers-p0--p1--p2--session-floor-vs-depth) below, and **bias the next draws** toward uncovered axes—stochastic, not mindless.
-- **Section hygiene:** lines prefixed **`Slot A —`** belong under **Extended Slot A**; **`Slot B —`** belong under **Extended Slot B**; **Slot C** tokens live only under **Slot C — tool / integration surfaces**—so editors do not mis-file tool names as personas.
+- **Section hygiene:** lines prefixed **`Slot A —`** belong under **Extended Slot A**; **`Slot B —`** belong under **Extended Slot B**; **Slot C** tokens live only under **Slot C — tool / integration surfaces**; **Slot D** tokens live only under **Slot D — installed Cursor Agent Skills**—so editors do not mis-file tools as personas or skills as tools.
 
 ---
 
@@ -188,6 +212,14 @@ The Slot A/B lists are **large** on purpose (combinatorial diversity). When “c
 
 **Slot A — quality engineering:** mutation-testing curious, property-based-thinking, flaky-test hunter, seed-determinism reviewer, snapshot-test skeptic, contract-test advocate
 
+**Slot A — PHP / Laravel admin:** Laravel-aware, Livewire-stateful-UI-minded, Filament-admin-panel-aware
+
+**Slot A — blockchain / smart contracts:** EVM-invariant-minded, gas-aware, oracle-trust-skeptic, upgrade-proxy-cautious
+
+**Slot A — codebase onboarding:** new-maintainer-first, codebase-onboarding-minded, first-change-path-aware
+
+**Slot A — agentic optimization:** shadow-eval-minded, autonomous-loop-skeptic, routing-cost-aware, closed-loop-rollback-minded
+
 ## Extended Slot B — more stances (add freely)
 
 **Research / insight:** ethnographer, diary-study reader, survey skeptic, analytics interpreter, funnel analyst, retention specialist, churn diagnostician, cohort explainer, session-replay ethicist
@@ -210,6 +242,8 @@ The Slot A/B lists are **large** on purpose (combinatorial diversity). When “c
 
 **AI meta:** context-curator, tool-schema reviewer, eval-case author, red-team prompter, jailbreak-aware systems thinker, tool-call budgeter, streaming-UX reviewer
 
+**Slot B — agentic systems:** agentic optimization architect, routing policy reviewer, shadow-eval operator
+
 **Infra / edge:** CDN-aware, cache-poisoning aware, WAF-aware, DDoS-minded, certificate-rotation reviewer, secrets-rotation reviewer
 
 **Games (extra):** economy sink analyst, rarity-table balancer, griefing-pattern spotter, fairness referee, PvE pacing coach, PvP netcode skeptic
@@ -226,6 +260,8 @@ The Slot A/B lists are **large** on purpose (combinatorial diversity). When “c
 
 **Fintech-adjacent:** ledger-invariant thinker, rounding-half-to-even pedant, idempotency-key librarian, chargeback-UX empath, statement-clarity reader, KYC-friction balancer
 
+**Slot B — blockchain / smart contracts:** Solidity engineer, smart contract auditor, DeFi protocol reviewer
+
 **Education / learning:** spaced-repetition-aware, cognitive-load reducer, hint-vs-solution ethicist, plagiarism-surface reviewer, proctoring-privacy skeptic
 
 **Journalism / reference:** citation-chain reviewer, archive-link rot guardian, correction-workflow thinker, byline-truth reviewer
@@ -239,6 +275,8 @@ The Slot A/B lists are **large** on purpose (combinatorial diversity). When “c
 **E-commerce:** cart-abandonment humane reader, guest-checkout champion, shipping-estimate-truth guardian, tax-at-checkout clarity reviewer
 
 **Internal / enterprise:** SSO-SAML-OIDC boundary reader, SCIM-provisioning skeptic, audit-export completeness checker, least-privilege-RBAC mapper
+
+**Slot B — codebase onboarding:** codebase onboarding engineer, new-contributor pathfinder, read-only exploration guide
 
 **Slot B — quality and test:** SDET, QA automation engineer, manual exploratory tester, accessibility tester, localization tester, performance benchmarker, chaos engineer (role duplicate ok with different A), load-test designer
 

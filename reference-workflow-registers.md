@@ -108,6 +108,17 @@ Do not stop solely because “we already wrote a lot”—stop on **evidence of 
 
 **Same stop logic for meta-work:** when the artifact under review **is this skill** (or companion markdown), extra meta-orchestra waves are justified only while they surface **new theme_keys**, **uncovered governance**, or **contradictions**. Otherwise you are rephrasing the same critique—stop. For **how** a user’s skill-change request becomes edits, see `SKILL.md` **Skill-targeting change requests (default behavior)**: **operationalize** first, then run the same merge/stop pattern—**not** a standing rule to copy the last user message into the contract unless a **Literal wording lock** applies.
 
+### Score threshold and honest stop loop
+
+After implementation or non-trivial skill-package edits, score each changed / adopted part against the dimensions that matter for the artifact. For governance markdown, typical dimensions are clarity, discoverability, gate enforceability, non-contradiction with companions, prompt usability, and honest stop behavior. Use **≥90/100 per part / dimension** as the target bar.
+
+Scores are a loop trigger, not a permission slip for endless polishing:
+
+- If any part scores below target **and** review surfaces a new Work Filter-passing `theme_key`, repeat the relevant subagent process for that theme.
+- If a low score is explained by missing evidence, blocked tooling, or domain uncertainty, record the residual risk and the verification gap.
+- If no new evidence or `theme_key` appears, findings are duplicate rephrasings, or the Work Filter rejects further changes as churn, stop under **Saturation closure** and state the residual risk honestly.
+- Do not average away a weak dimension: a 95 in wording does not hide an 82 in gate enforceability.
+
 ---
 
 ## Example register fragment (markdown)
