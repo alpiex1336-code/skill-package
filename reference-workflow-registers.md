@@ -65,7 +65,8 @@ Label these rows `source_roles: [explicit-audit][security champion]` etc.
 
 | Stakes | Suggested N (composed roles per wave) | Waves |
 |--------|----------------------------------------|--------|
-| Trivial single-file fix | 0–2 (optional) | 1 |
+| Trivial single-file fix (explicit narrow scope; thorough **not** pinned) | 2 minimum if behavior-touching | 1 |
+| Complete-compliance / thorough / skill-package governance | 4–8+ | 1–3+ |
 | Feature slice | 4–8 | 1–2 |
 | Release candidate / launch | 10–18 | 2–4 |
 | Security incident follow-up | Focused 6–10 + risk-triggered mandatory audits | Until clean |

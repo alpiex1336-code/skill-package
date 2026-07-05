@@ -2,6 +2,26 @@
 
 All notable changes to this skill package should be documented here.
 
+## 1.3.0 - 2026-07-06
+
+### Added
+
+- **`reference-zero-skip-compliance.md`** — operational companion for **zero-skip thorough doctrine**: non-reorderable pinned execution path, pre-write tool guard, violation detectors and recovery script, parent vs subagent parity table, complete-compliance blocking checklist, and `Orchestra gate: PASS | FAIL` self-audit line.
+- **Zero-skip thorough doctrine (hard law)** in `SKILL.md` — under **thorough**, **deep-upgrade intent**, or **complete skill compliance**, gates are **restrictions** until satisfied; Work Filter efficiency and urgency do not waive orchestra, ledger, or Gate 3.
+- **Complete skill compliance** — Lexicon + trigger routing for “follow skill completely,” “zero skip,” “execute all processes,” “skill compliance architect”; pins **thorough**, closes Gate 0 / PRE-FLIGHT scale-down, mandates dual load of execution-gates + zero-skip compliance references.
+- **Lexicon:** **Complete skill compliance**, **Gate word as restriction**, **Pinned execution path**.
+- **Anti-patterns:** **Fast-ship gate evasion**, **Ledger theater** (with recovery pointers).
+- **Common agent failure modes #6–8:** **Parent-only Implement**, **Complete-compliance ignored**, **Implement todos pre-adopt**.
+- **PRE-FLIGHT item 8 (COMPLIANCE)** — complete-compliance pin and parent Implement ban when Task exists.
+
+### Changed
+
+- Expanded **Gate checklist** with complete-compliance pin, parent implement ban, Orchestra gate self-audit, and tool-order guard.
+- **Violation recovery (hard stop)** replaces one-line recovery — structured HALT → Wave 1 → integrate → adopt → ledger → Gate 3 → re-audit protocol.
+- **Recursive self-application** defaults to **zero-skip thorough**; Wave 1 meta-orchestra mandatory before skill-package contract edits unless explicit single-line literal fix and complete-compliance not triggered.
+- **Skill package file count:** **seven** markdown files ship together (`SKILL.md` + six companions); install/copy instructions updated accordingly.
+- Trigger **complete-compliance** row: ledger row before Gate 3 delegate writes; note that Gate IDs ≠ chronological order.
+
 ## 1.2.0 - 2026-07-04
 
 ### Added

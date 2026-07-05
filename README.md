@@ -2,7 +2,7 @@
 
 `prompt-upgrade` is a Cursor Agent Skill for intent-based prompt handling, multi-role orchestration, recursive self-review, and evidence-grounded product or document improvement. It is Cursor-first, but the markdown contract is portable as a process document for other agent hosts.
 
-**Latest release:** [v1.2.0](https://github.com/alpiex1336-code/skill-package/releases/tag/v1.2.0) — adds Slot D for installed Agent Skills, strengthens prompt packets, and expands honest stop / scoring governance.
+**Latest release:** [v1.3.0](https://github.com/alpiex1336-code/skill-package/releases/tag/v1.3.0) — **zero-skip thorough doctrine**: complete skill compliance pins, parent-orchestrator parity, pre-write tool guard, and `reference-zero-skip-compliance.md` operational companion.
 
 Use it when you want an agent to move beyond a single generic reviewer voice. The skill teaches the assistant to identify the user's intent, choose an appropriate depth, sample multiple composed review roles, merge their findings into actionable `theme_key`s, verify what actually changed, and stop only when the scoped work reaches honest saturation.
 
@@ -13,11 +13,13 @@ Use it when you want an agent to move beyond a single generic reviewer voice. Th
 - It makes whole-product or all-aspects improvement explicit. When a prompt signals maximum breadth, the skill pins `thorough`, runs the Deep-upgrade procedural tier, and tracks skipped tools or substitute verification in a ledger.
 - **v1.1+:** It blocks the common agent failure mode of reading the skill then implementing solo—**Execution gates**, **PRE-FLIGHT**, and **in-session wave ledger** requirements are contract-level, not optional philosophy.
 - **v1.2+:** It separates optional capabilities into Slot C for tools/MCP/plugins and Slot D for installed, fully-read Agent Skills that provide extra task guidance without overriding `prompt-upgrade`.
+- **v1.3+:** Under **thorough**, **deep-upgrade**, or **complete skill compliance**, gates are **blocking law**—Work Filter and urgency cannot waive orchestra, in-session ledger, or Gate 3 delegation; load `reference-zero-skip-compliance.md` when evasion is suspected.
 
 ## What is included
 
 - `SKILL.md` - the authoritative contract. If companion files conflict with it, fix `SKILL.md` first.
 - `reference-execution-gates.md` - **Task tool patterns**, gate checklists, wave ledger templates, simulated-fallback scripts (load when passing Gate 1 or Gate 3).
+- `reference-zero-skip-compliance.md` - **Zero-skip thorough doctrine** operational reference: pinned execution path, pre-write tool guard, violation detectors/recovery, parent parity, complete-compliance checklist (load when thorough is pinned, complete skill compliance is triggered, or gate evasion is suspected).
 - `reference-word-banks.md` - Slot A / Slot B / optional Slot C tool surfaces / optional Slot D installed-skill guidance plus P0 / P1 / P2 sampling guidance.
 - `reference-depth-domains.md` - domain coverage maps for web, mobile, games, APIs, AI, operations, compliance, and adjacent product classes.
 - `reference-workflow-registers.md` - action-register fields, severity, risk-triggered audits, stop rules, and final-response mapping.
@@ -37,14 +39,14 @@ If you use SSH keys with GitHub:
 git clone git@github.com:alpiex1336-code/skill-package.git ~/.cursor/skills/prompt-upgrade
 ```
 
-If you clone elsewhere, copy or symlink the six skill markdown files into `~/.cursor/skills/prompt-upgrade/`. Keep `SKILL.md` at the folder root; the companion references use relative links.
+If you clone elsewhere, copy or symlink all **seven** skill markdown files into `~/.cursor/skills/prompt-upgrade/`. Keep `SKILL.md` at the folder root; the companion references use relative links.
 
 To update an existing install:
 
 ```sh
 cd ~/.cursor/skills/prompt-upgrade
 git pull origin main
-# or copy the six .md files from a fresh clone
+# or copy all seven .md files from a fresh clone
 ```
 
 ## Execution gates (v1.1+)
@@ -59,7 +61,7 @@ Before any **Implement**-phase artifact write, agents must pass **NON-NEGOTIABLE
 | **3** | Prefer one runtime subagent per adopted theme at Implement |
 | **4** | **Wave ledger** started in-session—not deferred to the final reply |
 
-Complete **PRE-FLIGHT** (same file) before the first file write. Operational templates live in `reference-execution-gates.md`.
+Complete **PRE-FLIGHT** (same file) before the first file write. Operational templates live in `reference-execution-gates.md`. For **thorough**, **deep-upgrade**, or **complete skill compliance**, also load [`reference-zero-skip-compliance.md`](reference-zero-skip-compliance.md) before the first in-scope artifact write.
 
 ## How the skill thinks
 
@@ -83,7 +85,7 @@ Every engagement follows the same macro sequence:
 2. **Research** — When the Snapshot is thin, fill gaps with cited standards, docs, and public patterns (not invented context).
 3. **Orchestrate** — Pass **Gate 1**: run Stochastic Role Orchestra waves with **runtime subagents** when Task is available; merge into `theme_key` rows; adopt via Work Filter (**Gate 2**).
 4. **Prioritize** — Order work by severity and dependency (blockers and trust risks first), using the action register in `reference-workflow-registers.md`.
-5. **Implement** — **Gates 2–3**: ship Quintessence rows only; delegate per theme when tooling allows; self-audit `Orchestra gate: PASS | FAIL` before first edit.
+5. **Implement** — **Gates 2–3**: ship Quintessence rows only; **one runtime subagent per adopted `theme_key`** when Task exists (no parent-only Implement); emit `Orchestra gate: PASS | FAIL` before first edit.
 6. **Verify** — Run project-standard checks when available; record verification in **wave ledger** (**Gate 4**).
 7. **Self-review** — Re-read changes and challenge prior conclusions; add another orchestra wave only when it could surface a distinct failure mode.
 8. **Stop** — End when verification holds and further waves would repeat the same themes; close decisively without filler prompts.
@@ -95,7 +97,7 @@ Every engagement follows the same macro sequence:
 The skill is **default-on**: read **NON-NEGOTIABLE EXECUTION GATES** and **Read order (cold start)** in `SKILL.md` on first use.
 
 - **Product work:** complete **PRE-FLIGHT**, pass Gates 1–4, then follow the eight-step workflow; scale depth with `normal` vs `thorough`.
-- **Edits to this package:** run recursive self-application—same gates apply before line edits (see **Recursive self-application** in `SKILL.md`).
+- **Edits to this package:** run recursive self-application with **zero-skip thorough** defaults—Wave 1 meta-orchestra mandatory before contract edits unless the user explicitly scoped a single-line literal fix and complete-compliance is not triggered (see **Recursive self-application** in `SKILL.md`).
 
 ## Tool and skill availability
 
@@ -111,6 +113,7 @@ Changes to `SKILL.md` wording can change agent behavior. Treat contract-level ch
 
 | Version | Summary |
 |---------|---------|
+| **1.3.0** | Zero-skip thorough doctrine, `reference-zero-skip-compliance.md`, complete skill compliance triggers, expanded gate checklist and failure modes (#6–8), violation recovery hard stop |
 | **1.2.0** | Slot D installed-skill guidance, read-before-use rules, prompt packet strengthening, scoring loop governance |
 | **1.1.0** | Execution gates, PRE-FLIGHT, failure-mode hard stops, `reference-execution-gates.md` |
 | **1.0.0** | Initial stable public package |

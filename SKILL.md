@@ -18,11 +18,20 @@ Use as the **default orchestration skill for any prompt**. Treat the active arti
 
 Pass/fail checkpoints **before** the next workflow phase. These are **not** philosophy—skipping them is a **contract violation** unless the user explicitly scoped a **trivial single-step** or **single-axis narrow** pass (**Intent over keywords**). When **`improvement_mode` = thorough** or **deep-upgrade intent** is pinned, the skip paths are closed: read the main contract top-to-bottom, load the required gate companion references before **Implement**, and run the gates at thorough depth.
 
+### Zero-skip thorough doctrine (hard law)
+
+When **`improvement_mode` = thorough`**, **deep-upgrade intent** is pinned, or the user invokes **complete skill compliance**:
+
+1. **Restriction, not recommendation** — Treat **NON-NEGOTIABLE EXECUTION GATES**, **PRE-FLIGHT**, **Pre-implementation gate**, **Deep-upgrade procedural tier**, and **Execution contract** as **blocking law**. **Work Filter efficiency**, urgency, empty repo, Ask/Agent mode, or subagent availability **do not** waive a gate.
+2. **Parent parity** — The **parent agent** is not exempt. Parent **may**: Understand, Research, PRE-FLIGHT, sample roles, **Task launches**, integrate, adopt, ledger, verify orchestration. Parent **may not**: first `Write`/`StrReplace`/implementing shell on in-scope artifacts; play all `[Slot A][Slot B]` voices in one paragraph when Task exists; implement adopted `theme_key`s inline when Gate 3 delegation is available.
+3. **No deferred honesty** — Mentioning orchestra or ledger **only** in the closing reply is **incomplete**, not compliant.
+4. **Override scope** — User must **explicitly** name **`normal`**, **`trivial single-step`**, or **`single-axis narrow`** to open scale-down. Vague speed pressure (“just ship”, “quick fix”) **does not** override thorough or complete-compliance pins.
+
 ### Gate checklist (blocking — scan before any in-scope artifact file write)
 
 When **`improvement_mode` = thorough**, **deep-upgrade intent**, or the user asked for **full skill / orchestrated / multi-agent** execution, **do not create or edit product files** until every item is satisfied or honestly substituted with ledger disclosure:
 
-- [ ] **Mode pinned** — `thorough` or `normal` stated (or scale-down rationale for trivial scope).
+- [ ] **Mode pinned** — `thorough` | `normal` stated. If thorough/deep-upgrade/complete-compliance: **no scale-down**. Scale-down rationale allowed **only** when user **explicitly** scoped trivial single-step or single-axis narrow **and** thorough is **not** pinned.
 - [ ] **Target coverage set** — compact list of aspect classes for this engagement.
 - [ ] **Wave 1 complete** — at least one full **sample → execute → integrate → adopt** cycle finished.
 - [ ] **N > 1 roles** — multiple distinct `[Slot A][Slot B]` labels executed (**runtime or simulated**—never skip both).
@@ -31,12 +40,25 @@ When **`improvement_mode` = thorough**, **deep-upgrade intent**, or the user ask
 - [ ] **Quintessence rows** — At least one **Quintessence row** passed **integrate → adopt** (Work Filter) **before** Implement.
 - [ ] **Gate references loaded** — For thorough/deep-upgrade or non-trivial skill-package work, `SKILL.md` was read in order and [reference-execution-gates.md](reference-execution-gates.md) was loaded before Gate 1 / Gate 3 prompts; other companion refs stay **depth on demand**.
 - [ ] **P0 floor** (thorough whole-product) — Each applicable P0 family instantiated or marked N/A with one-line rationale.
+- [ ] **Complete-compliance pin** (when triggered) — User asked for full skill execution; thorough pinned; all escape hatches closed per **Zero-skip thorough doctrine**.
+- [ ] **Parent implement ban** — No parent-only Implement when Task/delegation available; Gate 3 runtime launches planned per accepted `theme_key`.
+- [ ] **Orchestra gate self-audit** — One line ready: `Orchestra gate: PASS | FAIL` with wave count, label count, ledger location **before** first artifact write.
+- [ ] **Tool-order guard** — No implementing `Write`/`StrReplace`/`EditNotebook`/destructive shell before PRE-FLIGHT + Wave 1 + adopt; **TodoWrite implement todos forbidden** pre-adopt.
 
 **Violation:** Proceeding to Implement with zero orchestra waves and zero ledger rows is **single-voice collapse**—see **Anti-patterns** below.
 
 ### Gate 0 — Am I allowed to skip orchestration?
 
-Only when the user explicitly requested **trivial single-step** or **single-axis narrow** scope. This exception is **unavailable** once **`improvement_mode` = thorough** or **deep-upgrade intent** is pinned. **`improvement_mode` = normal** on product work still requires **N > 1** roles for the review wave—it does **not** authorize solo-parent implementation.
+**Default: NO.**
+
+Open **only** when **all** are true:
+- User **explicitly** scoped **trivial single-step** or **single-axis narrow** (quoted intent, not inferred urgency).
+- **`improvement_mode` ≠ thorough`** and **deep-upgrade intent** is **not** pinned.
+- **Complete skill compliance** is **not** triggered.
+
+**Closed paths (orchestra mandatory):** thorough, deep-upgrade, complete-compliance triggers, greenfield product work, skill-package governance edits, meta-review of this package, any product-making/changing work without explicit narrow scope.
+
+**`improvement_mode` = normal** on product work still requires **N > 1** roles and Gate 3 when Task exists—it does **not** authorize solo-parent implementation.
 
 ### Gate 1 — Orchestra wave: runtime subagents before integration
 
@@ -49,6 +71,8 @@ No in-scope artifact file edits from raw role chatter. Adopted work flows only t
 ### Gate 3 — Implement: delegate per surviving theme_key
 
 For each adopted quintessence row, prefer **one scoped runtime subagent** (fresh composed role aimed at that theme). Batching allowed only with disclosure in the wave ledger. Gate 3 prompts use the same prompt packet invariant and add **no-cross-theme / no-synthesis** boundaries unless explicitly batched. **Forbidden:** parent agent implements all themes inline while subagents ran only for “review.”
+
+**Parent-agent hard stop:** If Task/delegation is available and ≥1 `theme_key` is accepted, the **first** implementing tool call on in-scope artifacts **must** come from a **Gate 3 runtime subagent** (or documented batch in ledger)—**not** the parent. Parent synthesis-only implementation is a **contract violation**, not a batching optimization.
 
 ### Gate 4 — Ledger or stop
 
@@ -157,6 +181,20 @@ Skipping multi-role review or skipping reflection to ship faster **violates** th
 
 **Red flags:** First `Write`/`StrReplace` on product code appears before any `[Slot A][Slot B]` tagged findings; zero Task invocations when thorough + tooling present; closing reply is the first mention of “orchestra” or “wave ledger.”
 
+### Fast-ship gate evasion
+
+**Symptom:** Agent cites Work Filter, urgency, or “minimal diff” to skip Task, ledger, or Gate 3; runs orchestra **after** first write; uses simulated roles while Task exists; treats thorough as “more detailed prose.”
+
+**Why it violates:** Gates are **restrictions** under thorough/complete-compliance—not optional depth.
+
+**Required recovery:** See **Violation recovery (hard stop)** below and [reference-zero-skip-compliance.md](reference-zero-skip-compliance.md).
+
+### Ledger theater
+
+**Symptom:** Wave ledger appears only in final summary; no per-wave rows before Implement; `theme_key`s listed without tagged role findings.
+
+**Required recovery:** Halt → rebuild Wave 1 with separable tagged outputs → ledger row 1 in-session → resume from adopt only.
+
 ## Common agent failure modes (hard stops)
 
 These are **contract violations**, not style preferences. If any **Hard stop rule** fires, **stop** and recover **before** the next file write or success claim.
@@ -168,8 +206,11 @@ These are **contract violations**, not style preferences. If any **Hard stop rul
 | **3** | **Simulated-only when Task available** | Labeled paragraphs in one voice while Task exists; no delegation | Launch **runtime subagents** first; simulated only after documented blocker in ledger | *Did I try Task this session, or default to simulation silently?* |
 | **4** | **Missing wave ledger** | Terminal “done” with no per-wave record | **Do not close** thorough/deep-upgrade sessions without auditable wave ledger in reply or artifact | *Can a maintainer reconstruct sampled/adopted/verified from my reply alone?* |
 | **5** | **Implement-before-orchestrate** | First tools are Write/StrReplace/TodoWrite for implementation | **No product file writes** until integrate → adopt produced Work Filter–passed quintessence row(s) | *What `theme_key`s passed Work Filter before my first edit?* |
+| **6** | **Parent-only Implement** | Subagents reviewed; parent `Write`/`StrReplace` all themes | **Hard stop** before next write; launch Gate 3 subagents per accepted `theme_key` | *Did any implementing edit run outside a Gate 3 delegate?* |
+| **7** | **Complete-compliance ignored** | User said “follow skill completely” but thorough/gates scaled down | Pin thorough + **Pinned execution path**; close Gate 0 | *Did I treat “follow skill” as flavor text?* |
+| **8** | **Implement todos pre-adopt** | `TodoWrite` implementation items before integrate→adopt | Remove implement todos; orchestra first | *Any todo implies ship before quintessence?* |
 
-**Recovery:** Halt writes → complete PRE-FLIGHT → run orchestra wave (runtime when available) → integrate → adopt → append ledger → then implement.
+**Violation recovery (hard stop):** (1) **HALT** all artifact writes and success claims. (2) Emit **PRE-FLIGHT** block with `GATE: FAIL` and violated rule ids. (3) Run **Wave 1** — runtime Task **first** if available; else ledger + simulated with same N. (4) **Integrate → adopt** → append **ledger row 1 in this reply**. (5) **Gate 3 delegate** per accepted `theme_key`. (6) Re-audit: `Orchestra gate: PASS` before next write. Do **not** “fix forward” without recovery.
 
 ## PRE-FLIGHT (mandatory before any product file write)
 
@@ -185,10 +226,11 @@ PRE-FLIGHT — product work gate
 5. ORDER     sample → execute → integrate → adopt BEFORE implement.
 6. LEDGER    wave_id reserved; fields ready (labels, theme_keys, adoption, verification).
 7. FILTER    No implementation todos until adopt pass completes.
-GATE: If 4–7 not satisfied → orchestra first, not files.
+8. COMPLIANCE complete-compliance pin? [Y/N] → if Y: thorough locked; Gate 0 closed; parent Implement banned when Task exists.
+GATE: If 4–8 not satisfied → orchestra first, not files.
 ```
 
-**Exceptions (narrow):** user explicitly requested trivial single-step with no product-making intent; typo/link fix with no behavior change—state PRE-FLIGHT scale-down in one line. **Skill-targeting** edits follow **Recursive self-application** (meta-orchestra before contract edits), same gate.
+**Exceptions (narrow — unavailable when thorough / deep-upgrade / complete-compliance pinned):** user explicitly requested trivial single-step with no product-making intent; typo/link fix with no behavior change—state PRE-FLIGHT scale-down in one line **only if** thorough is **not** pinned. **Skill-targeting** and governance edits: **Recursive self-application** with **full Wave 1**—no “trivial skip full wave.”
 
 ## Language policy for this skill
 
@@ -241,6 +283,9 @@ Keep skill text, word-bank entries, and composed role labels **in English** so t
 | **Loop escape** | When reasoning **repeats** without new evidence or new **`theme_key`s**, **stop recycling** the same frame: draw an **orthogonal** composed role, pull **new** facts from tools/repo, or **stop** under honest wave rules—do not tread a **cognitive dead loop**. |
 | **Saturation closure** | Session stops under **Workflow §8** / orchestra wave rules with verification stated (**Quality ceiling (honest)**)—not a claim of infinite perfection. Pair with **Outward closure discipline**. |
 | **Outward closure discipline** | Terminal user-visible reply after scoped skill execution avoids unprompted questions and advisory menus (**Skill-first reasoning & outward closure**) unless user invites continuation or a **blocking** disclosure requires decision. |
+| **Complete skill compliance** | User pins full execution: “follow skill completely,” “execute all processes,” “zero skip,” governance/meta-review with skill architect framing. **Pins thorough**, closes Gate 0 scale-down, mandates **Pinned execution path** (Trigger phrases). |
+| **Gate word as restriction** | Under thorough/complete-compliance, each gate/checklist/ledger/delegation clause is a **prohibition until satisfied**—not guidance. Work Filter **cannot** waive orchestra, ledger, or Gate 3 for speed. |
+| **Pinned execution path** | Ordered mandatory sequence: PRE-FLIGHT → Gate 1 runtime orchestra → Gate 2 integrate→adopt → in-session ledger → Gate 3 per-`theme_key` delegate → Verify → Self-review → Stop with ledger. No phase reordering. |
 
 ## Document length and efficiency (no arbitrary cap)
 
@@ -258,6 +303,7 @@ Optimize for **greatest ability** and **lowest wasted effort**, not for looking 
 | File | Use |
 |------|-----|
 | [reference-execution-gates.md](reference-execution-gates.md) | **Task/delegation patterns**, gate checklists, prompt packet templates, wave ledger templates, simulated-fallback honesty scripts, anti-patterns. **Load when passing Gate 1 or Gate 3**—not for philosophy alone. |
+| [reference-zero-skip-compliance.md](reference-zero-skip-compliance.md) | **Zero-skip thorough doctrine** operational reference: pinned execution path, pre-write tool guard, violation detectors/recovery, parent parity, complete-compliance checklist. **Load when complete skill compliance is triggered**, thorough is pinned, or gate evasion is suspected. |
 | [reference-word-banks.md](reference-word-banks.md) | Slot A / Slot B sampling; **optional Slot C** (tools/MCP/plugins—availability required); **Priority tiers (P0 / P1 / P2)** and **P0 session floor**; extend with domain tokens. **Enrichment:** web, standards, docs, and GitHub repos—see *Enriching banks from the wider web* in that file. Use with **Target coverage set**, **complement-bias**, and **Reference-informed domain coverage**. |
 | [reference-depth-domains.md](reference-depth-domains.md) | Failure-mode checklists by product class (web, mobile, games, API, AI, ops, compliance strips). Bias orchestra coverage using a hash map from product type → sections. |
 | [reference-workflow-registers.md](reference-workflow-registers.md) | Action register schema, severity rubric, coverage set, risk-triggered mandatory audits, heap ordering, stop rules. |
@@ -293,7 +339,7 @@ Users often speak in goals, not mechanisms. Treat these as **signals to run the 
 |----------------------|--------------|
 | (Any wording) user intends **product making or changing** with this skill, and **normal** vs **thorough** is **not identifiable** from message + **Snapshot** | Ask once, **wait**, then **Understand → …** after the user chooses. |
 | **(Default-on)** any prompt where **`prompt-upgrade`** applies and work is not trivial single-step | Run skill; **pass Gate 0**; if product-making/changing → **Gates 1–4** before substantive edits. |
-| “**Use prompt-upgrade**” / “**follow the skill**” / “**orchestrated review**” / “**multi-agent**” / “**execute all processes**” | **Pinned execution path:** Gate 1 runtime orchestra → Gate 2 integrate → Gate 3 per-`theme_key` delegation → Gate 4 in-session ledger. |
+| “**Use prompt-upgrade**” / “**follow the skill**” / “**follow skill completely**” / “**orchestrated review**” / “**multi-agent**” / “**execute all processes**” / “**zero skip**” / “**skill compliance architect**” | **Complete skill compliance — pinned execution path:** (1) Pin **`improvement_mode` = thorough** unless user **explicitly** named `normal`. (2) Close Gate 0 / PRE-FLIGHT scale-down. (3) Load [reference-execution-gates.md](reference-execution-gates.md) + [reference-zero-skip-compliance.md](reference-zero-skip-compliance.md). (4) **Gate 1** runtime orchestra (≥2 parallel Task if available). (5) **Gate 2** integrate→adopt. (6) **Gate 4** in-session ledger row **before** first artifact write. (7) **Gate 3** one runtime subagent per accepted `theme_key`. (8) Parent **orchestrates only** when Task exists. **Do not ask** Normal vs Thorough unless user explicitly reopened mode choice. **Note:** Gate IDs ≠ chronological order—ledger-start precedes delegate Implement writes. |
 | “**Build**” / “**implement**” / “**add feature**” (product-changing) | **Gates 1–3 before parent-agent coding**—review subagents ≠ implement subagents. Mode: ask if unclear. |
 | “**Just fix this one thing**” / surgical / blockers-only | **`improvement_mode` = normal**; **Gates 1–3 still apply** with smaller N—**not** solo-parent shortcut. |
 | “Don’t sound like AI / a chatbot” / “professional tone only” / “no cheerleading” / “don’t suck up” / “don’t loop forever” / similar **intent** (any language) | Apply **Professional voice, loop escape, and multi-angle thinking** plus **Lexicon** (**LLM-default voice (avoid)**, **Sycophancy (avoid)**, **Loop escape**); tighten replies toward evidence-led, professional register—**not** a new workflow gate. Optionally bias Slot A toward **assistant output hygiene** tokens in [reference-word-banks.md](reference-word-banks.md). |
@@ -305,7 +351,7 @@ Users often speak in goals, not mechanisms. Treat these as **signals to run the 
 | “**Full pass / mature the whole thing / everything / fully upgrade**” | Usually **deep-upgrade intent** → **pinned thorough** + tier. If breadth is genuinely ambiguous, decide whether mode is identifiable from the whole message; if not and product-changing intent remains, ask once and wait. |
 | “**Audit / meta-review / improve this skill**” / “**recursive self-application**” | Run **Recursive self-application** with **multiple** `[Slot A][Slot B]` meta-roles (same **Execution contract**); edit companion markdown only for gaps that pass the Work Filter. |
 | “**Mature product iteration**” / “**role perturbation**” / old **fixed job-title** review lists | Treat as **this skill** with **composed roles** (see **Lexicon**: **Named job families (legacy checklist)**). If product-making and mode is not identifiable, ask once and wait. Do not resurrect a parallel checklist skill in the same session unless the user explicitly requires it. |
-| “**Change the skill**” / “**edit SKILL**” / “**add a rule to this skill**” / any clear **skill-targeting request** (see **Lexicon**) | **Skill-targeting default:** **operationalize** the user’s message—**advice**, opinions, and casual phrasing included—into concepts and constraints in this skill’s vocabulary, then run the **meta-orchestra** → **Integrate** → **Work Filter** path on the package. **Do not** treat the user’s last message as mandatory literal text to paste into the contract **unless** they invoked a **Literal wording lock**. Trivial one-line fixes (typos, broken link) may skip a full wave—still keep **honesty** and **contract coherence**. |
+| “**Change the skill**” / “**edit SKILL**” / “**add a rule to this skill**” / meta-review / governance / any clear **skill-targeting request** (see **Lexicon**) | **Skill-targeting default:** **operationalize** the user’s message—**advice**, opinions, and casual phrasing included—into concepts and constraints in this skill’s vocabulary, then run the **meta-orchestra** → **Integrate** → **Work Filter** path on the package. **Do not** treat the user’s last message as mandatory literal text to paste into the contract **unless** they invoked a **Literal wording lock**. **Recursive self-application** with **zero-skip thorough** defaults; Wave 1 meta-orchestra **mandatory** before contract edits—typos included unless user **explicitly** scoped single-line literal fix **and** complete-compliance is **not** triggered. |
 
 If the brief stays ambiguous after one pass, state assumptions and pick the smallest shippable set of changes that measurably improves the decoded criteria. For **product making or changing** with mode **not identifiable**, the **Improvement mode selection** rule covers “ask once and wait.” For non-product or clearly narrow/small-scope ambiguity, scale execution down or assume **normal** when harm is low.
 
@@ -645,7 +691,7 @@ Use orchestra draws to stress these axes over time; do not rely on a single “f
 
 ## Recursive self-application (skill improves the skill)
 
-**Before non-trivial line edits to `SKILL.md` or companion `reference-*.md` files:** run **this skill on the package**—**read → meta-orchestra → Integrate → Work Filter → then edit** (see **Skill-targeting change requests**). **Same NON-NEGOTIABLE EXECUTION GATES and PRE-FLIGHT apply**—meta-orchestra satisfies Gate 1; integrate satisfies Gate 2; line edits satisfy Gate 3. For thorough or non-trivial skill-package edits, run a fresh independent acceptance / evaluation subagent after edits, then score changed governance parts against clarity, discoverability, gate enforceability, non-contradiction, and honest stop behavior (target **≥90/100** per relevant dimension). If the review finds a new Work Filter-passing `theme_key`, repeat through the same process; if it only repeats known concerns or proposes churn, stop under **Saturation closure** with residual risk stated. Do not treat the user’s draft as the contract until it has passed that path (typos / single anchors may skip a full wave—still keep coherence).
+**Before non-trivial line edits to `SKILL.md` or companion `reference-*.md` files:** run **this skill on the package**—**read → meta-orchestra → Integrate → Work Filter → then edit** (see **Skill-targeting change requests**). **Same NON-NEGOTIABLE EXECUTION GATES and PRE-FLIGHT apply**—meta-orchestra satisfies Gate 1; integrate satisfies Gate 2; line edits satisfy Gate 3. For thorough or non-trivial skill-package edits, run a fresh independent acceptance / evaluation subagent after edits, then score changed governance parts against clarity, discoverability, gate enforceability, non-contradiction, and honest stop behavior (target **≥90/100** per relevant dimension). If the review finds a new Work Filter-passing `theme_key`, repeat through the same process; if it only repeats known concerns or proposes churn, stop under **Saturation closure** with residual risk stated. Do not treat the user’s draft as the contract until it has passed that path. **Wave 1 meta-orchestra is mandatory** before contract edits unless the user **explicitly** scoped a single-line literal fix **and** complete-compliance is **not** triggered.
 
 **Always-on meta check for this package:** when a user asks "how should this be written?" or gives directional guidance (including short notes, opinions, or reminders), treat that as input to the same recursive path above. Do not bypass this path with direct transcription unless a **Literal wording lock** is explicit.
 

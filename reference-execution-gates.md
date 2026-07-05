@@ -28,7 +28,8 @@ Companion to `SKILL.md` **NON-NEGOTIABLE EXECUTION GATES**. Load this file when 
 
 | Mode / scope | Min composed labels | Min runtime subagents (when Task exists) | Waves |
 |--------------|---------------------|------------------------------------------|-------|
-| Trivial single-step | 0 (orchestra optional) | 0 | 0 |
+| Trivial single-step (explicit user scope only; thorough **not** pinned) | 2 minimum if product-touching; 0–1 **only** for non-product typo/link | 1 | 0–1 |
+| Complete-compliance / thorough pinned | 4–8+ first wave | ≥2 parallel on first wave | 1–3+ |
 | Single-axis narrow | 1–2 | 1 if product-changing | 1 |
 | Normal product pass | 2–4 | ≥1 | 1 |
 | Thorough / deep-upgrade | 4–8+ | ≥2 parallel on first wave | 1–3+ |
@@ -205,6 +206,9 @@ Use **only** when Task/delegation is unavailable or blocked:
 | Parent plays all roles in one paragraph | Parallel **Task tool** launches with distinct labels |
 | **Review (skill sense)** only → parent **Implement** inline | Gate 3: one runtime subagent per Work Filter–accepted **Quintessence row** |
 | Thorough user request treated as “style preference” | Pin thorough + Gate checklist |
+| Thorough + Task exists + zero Task calls | **Hard stop**; run Gate 1 runtime wave before any write |
+| “Follow skill completely” but PRE-FLIGHT scale-down | Pin thorough; reload **Zero-skip** companion |
+| Parent implements after review-only subagents | Gate 3 per `theme_key`; parent halts writes |
 
 ---
 
@@ -219,7 +223,8 @@ PRE-FLIGHT — product work gate
 5. ORDER: integrate → adopt before implement
 6. LEDGER: wave_1 reserved
 7. FILTER: no implement todos pre-adopt
-GATE: PASS | FAIL
+8. COMPLIANCE: complete-compliance pin? [Y/N] → if Y: thorough locked; Gate 0 closed; parent Implement banned when Task exists
+GATE: PASS | FAIL (items 4–8)
 ```
 
 ---
