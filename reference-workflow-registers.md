@@ -1,148 +1,195 @@
 # Workflow registers, rubrics, and session rules
 
-Companion to `SKILL.md`. Use structured registers so orchestra output **converges** instead of dissolving into chat.
+Companion to SKILL.md. Registers make the canonical lifecycle auditable and help
+many reviewer outputs converge into a few evidence-backed actions.
 
----
+## Intent register
 
-## Action register (minimum fields)
-
-Each row is one shippable unit of work after integration.
+Store one row per Intent Brief:
 
 | Field | Purpose |
-|-------|---------|
-| `id` | Stable string, e.g. `AUTH-014` |
-| `summary` | One line, verb-led |
-| `source_roles` | Composed labels that proposed or reinforced it |
-| `theme_key` | Hash-map bucket, e.g. `session-security` |
-| `severity` | `blocker` / `high` / `medium` / `low` / `chore` |
-| `user_visible` | yes / no / mixed |
-| `evidence` | Link, repro steps, screenshot note, or “judgment call” stated honestly |
-| `verification` | Command, manual flow, or metric |
-| `status` | `proposed` / `accepted` / `in_progress` / `done` / `wontfix` |
-| `work_filter` | Short note: which clause justified accept or reject |
-| `tier_obligation` | Optional for deep-upgrade runs: obligation id (A-F), skipped / substitute / residual-risk note, or `n/a` |
+|---|---|
+| intent_brief_id | Stable id for the run |
+| explicit_request | User's stated request |
+| artifact | Artifact under review or change |
+| audience | Intended user, reader, maintainer, integrator, or operator |
+| desired_outcome | Observable result the user wants |
+| deeper_purpose_hypothesis | Supported, confidence-labeled interpretation |
+| pain_points | Stable ids for demonstrated problems |
+| success_criteria | Stable ids for observable success conditions |
+| success_evidence | Evidence that would demonstrate each criterion |
+| constraints | Requirements the change must honor |
+| non_goals | Explicitly excluded work |
+| protected_invariant | Purpose or behavior that must remain coherent |
+| observed_evidence | Snapshot pointers |
+| assumptions | Bounded inferences used to proceed |
+| unknowns | Items not established as fact |
+| direction_changing_questions | Resolved answers or none |
 
-Rejected rows stay in the register as `wontfix` with reason—prevents re-discovery loops.
+## Action register
 
----
+Each row is one integrated Quintessence theme, not one raw reviewer comment.
 
-## Severity rubric (suggested)
+| Field | Purpose |
+|---|---|
+| id | Stable action id |
+| intent_brief_id | Source Intent Brief |
+| criterion_or_pain_point | Stable source id |
+| review_prompt_ids | Reviewer packets that produced supporting findings |
+| finding_ids | Integrated source findings |
+| source_roles | Distinct composed labels |
+| theme_key | Stable merge bucket |
+| summary | One verb-led action |
+| severity | blocker, high, medium, low, or chore |
+| user_visible | yes, no, or mixed |
+| evidence | Reproduction, file, screenshot, standard, or stated judgment |
+| acceptance_criteria | Observable definition of success |
+| verification_plan | Command, manual flow, audit, or review |
+| edit_prompt_id | Packet compiled after acceptance |
+| changed_artifacts | Exact paths or surfaces |
+| verification_ids | Evidence returned after Edit |
+| status | proposed, accepted, in_progress, done, or wontfix |
+| work_filter | Acceptance or rejection rationale |
+| residual_risk | Honest unresolved uncertainty |
 
-- **Blocker:** data loss, account takeover, illegal exposure, unshippable crash on primary journey.
-- **High:** security weakness without immediate exploit, severe accessibility barrier, broken main monetization path, chronic data corruption risk.
-- **Medium:** confusion, moderate perf regression, missing edge state, i18n gap on common locale.
-- **Low:** polish, microcopy, minor inconsistency with low confusion cost.
-- **Chore:** hygiene (format, dead code) only when it clears real noise or enables other work.
+Rejected rows remain as wontfix with reasons to prevent rediscovery loops.
 
-Weight orchestra “votes” by **severity × independence × verification ease**, not by row count.
+## Trace register
 
----
+Every changed artifact must resolve this chain:
 
-## Coverage set (session axes)
+    intent_brief_id
+      → criterion or pain_point
+        → review_prompt_id
+          → finding_id
+            → theme_key
+              → edit_prompt_id
+                → changed artifact
+                  → verification_id
 
-Maintain a **set** of axis ids for the current session. Example universe:
+Before Edit, verification_id may be pending; every earlier link must resolve.
+After Verify, unresolved final links prevent acceptance.
 
-`correctness`, `security`, `privacy`, `perf`, `a11y`, `i18n`, `ux_copy`, `visual`, `motion`, `audio`, `gameplay`, `economy`, `multiplayer`, `ai_safety`, `deploy`, `observability`, `compliance`, `docs`, `dx`
+## Severity rubric
 
-After each orchestra wave, **union** axes touched by findings. Before the next wave, **bias** draws toward `universe - touched` until diminishing returns, then allow aesthetic passes again.
+- **Blocker:** data loss, account takeover, illegal exposure, unshippable failure
+  on a primary journey, or a contradiction that makes safe execution impossible.
+- **High:** serious security weakness, accessibility barrier, broken primary flow,
+  chronic corruption risk, or governance that permits unauthorized change.
+- **Medium:** material confusion, performance regression, missing common state,
+  internationalization gap, or incomplete prompt boundary.
+- **Low:** small but defensible clarity or consistency improvement.
+- **Chore:** hygiene that removes real noise or enables accepted work.
 
----
+Weight support by severity, independence, evidence, and verification ease, not
+role count.
 
-## Risk-triggered mandatory audits (non-stochastic, when triggered)
+## Coverage register
 
-Run explicitly—even if random draws “could” cover them—when these risk surfaces appear. This block is separate from `SKILL.md` **Deep-upgrade procedural tier** A-F; both can apply in one session.
+Maintain a set of relevant aspect ids for the engagement. A useful starting
+universe is:
 
-- Auth, payments, or health data present.
-- User-generated content public by default.
-- AI tools can mutate user data or spend money.
-- Regulatory claim in marketing (HIPAA-ready, SOC2, GDPR-compliant).
+correctness, security, privacy, performance, accessibility, internationalization,
+user_experience, visual, motion, audio, gameplay, economy, multiplayer, ai_safety,
+cost, deployment, observability, compliance, documentation, maintainer_experience,
+prompt_precision, contract_consistency
 
-Label these rows `source_roles: [explicit-audit][security champion]` etc.
+Derive the actual target set from the Snapshot and Intent Brief. After each review
+wave, union the aspects substantively covered. Bias later role packets toward
+target-set gaps while information gain remains.
 
----
+## Risk-triggered mandatory audits
 
-## Orchestra session sizing
+Run an explicit evidence-seeking reviewer packet when any of these surfaces appear:
 
-| Stakes | Suggested N (composed roles per wave) | Waves |
-|--------|----------------------------------------|--------|
-| Trivial single-file fix (explicit narrow scope; thorough **not** pinned) | 2 minimum if behavior-touching | 1 |
-| Complete-compliance / thorough / skill-package governance | 4–8+ | 1–3+ |
-| Feature slice | 4–8 | 1–2 |
-| Release candidate / launch | 10–18 | 2–4 |
-| Security incident follow-up | Focused 6–10 + risk-triggered mandatory audits | Until clean |
+- authentication, payments, health, financial, or other sensitive data;
+- public user-generated content;
+- AI or automation able to mutate data, spend money, or perform irreversible acts;
+- security, privacy, accessibility, or regulatory claims;
+- deployment or migration with material rollback risk.
 
-N is not a quota cap—raise N when parallel surfaces (client + server + AI + ops) all move.
+Random role selection does not satisfy these audits accidentally. Record the
+dedicated review_prompt_id and resulting verification obligation.
 
----
+## Session sizing
 
-## Integration order (heap keys)
+| Stakes and scope | Suggested roles per wave | Suggested waves |
+|---|---:|---:|
+| Small behavior-changing artifact | 2–4 | 1 or saturation |
+| Feature or multi-surface change | 4–8 | 1–3 |
+| Broad governance or release candidate | 8–18 | 2–4 |
+| Security incident follow-up | 6–10 focused roles plus mandatory audits | until acceptance holds |
 
-When popping work from a min-heap, compare tuples in order:
+These are starting bands. Increase or reduce subsequent draws only from evidence:
+coverage gaps, new failure mechanisms, duplicated outputs, and acceptance results.
 
-1. `severity` (blocker first)
-2. `user_visible` blockers before invisible unless invisible unblocks visible
-3. `verification` ease (cheap proof first when tied)
-4. `dependency_in_degree` from graph of tasks (zero first)
+## Integration order
 
----
+When ordering accepted actions, compare:
+
+1. severity;
+2. user-harm and correctness impact;
+3. dependency order;
+4. reversibility and option value;
+5. verification ease when otherwise tied.
+
+Represent blocks and depends-on relationships explicitly when multiple themes
+interact.
 
 ## Conflict resolution
 
-When two roles disagree:
+When reviewers disagree:
 
-1. Prefer **reproducible evidence** over taste.
-2. If still tied, prefer **user harm reduction** and **correctness**.
-3. If still tied, **smallest reversible change** that preserves option value.
-4. If still tied, escalate to the user with **two labeled options**, not a vague question.
+1. Prefer reproducible evidence over taste.
+2. Prefer user-harm reduction and correctness.
+3. Prefer the smallest reversible change that satisfies the Intent Brief.
+4. Check whether one proposal violates a constraint or protected invariant.
+5. Ask the user only if the remaining choice materially changes direction, safety,
+   scope, or acceptance.
 
----
+Record the resolution and rejected alternative in the theme row.
 
-## Stop rule for orchestra waves
+## Stop rule for reviewer waves
 
-Stop sampling new roles when:
+Stop drawing roles when all applicable conditions hold:
 
-- Coverage set is saturated **or**
-- Last wave added no new `theme_key` entries **or**
-- New findings are rephrasings of existing rows (Bloom-metaphor: likely duplicates).
+- the target coverage set is sufficiently represented;
+- the latest wave adds no new viable theme_key;
+- new findings repeat existing rows or lack new evidence;
+- mandatory audits have findings, verification, or an explicit residual-risk path;
+- packet lint and independent acceptance expose no new failure mechanism; and
+- remaining proposals fail the Work Filter.
 
-Do not stop solely because “we already wrote a lot”—stop on **evidence of saturation**. For deep-upgrade runs, skipped tier obligations and substitute verification remain in the register until resolved, marked `wontfix` with Work Filter rationale, or carried into the terminal residual-risk summary; disclosure alone is not a stop signal.
+Do not stop because the document is long or continue because more role names are
+available. Re-enter the canonical lifecycle after Verify only for new evidence, a
+failed criterion, or a new Work Filter-viable theme.
 
-**Same stop logic for meta-work:** when the artifact under review **is this skill** (or companion markdown), extra meta-orchestra waves are justified only while they surface **new theme_keys**, **uncovered governance**, or **contradictions**. Otherwise you are rephrasing the same critique—stop. For **how** a user’s skill-change request becomes edits, see `SKILL.md` **Skill-targeting change requests (default behavior)**: **operationalize** first, then run the same merge/stop pattern—**not** a standing rule to copy the last user message into the contract unless a **Literal wording lock** applies.
+## Acceptance rubric
 
-### Score threshold and honest stop loop
+For each changed or adopted part, evaluate only relevant dimensions:
 
-After implementation or non-trivial skill-package edits, score each changed / adopted part against the dimensions that matter for the artifact. For governance markdown, typical dimensions are clarity, discoverability, gate enforceability, non-contradiction with companions, prompt usability, and honest stop behavior. Use **≥90/100 per part / dimension** as the target bar.
+- intent fidelity and pain-point targeting;
+- clarity and usability;
+- safety and protected-invariant preservation;
+- internal and companion consistency;
+- maintainability;
+- prompt distinctness and boundary quality;
+- trace completeness;
+- verification strength; and
+- honest residual-risk handling.
 
-Scores are a loop trigger, not a permission slip for endless polishing:
-
-- If any part scores below target **and** review surfaces a new Work Filter-passing `theme_key`, repeat the relevant subagent process for that theme.
-- If a low score is explained by missing evidence, blocked tooling, or domain uncertainty, record the residual risk and the verification gap.
-- If no new evidence or `theme_key` appears, findings are duplicate rephrasings, or the Work Filter rejects further changes as churn, stop under **Saturation closure** and state the residual risk honestly.
-- Do not average away a weak dimension: a 95 in wording does not hide an 82 in gate enforceability.
-
----
-
-## Example register fragment (markdown)
-
-```markdown
-| id | summary | source_roles | theme_key | severity | user_visible | verification | status |
-|----|---------|--------------|-----------|----------|--------------|--------------|--------|
-| AUTH-014 | Rotate session cookie on privilege change | `[adversarial][security champion]` | session-security | high | mixed | integration test + manual login | accepted |
-| UI-022 | Empty state for zero notifications | `[modern-UX-led][UX researcher]` | empty-states | medium | yes | visual + screen reader | proposed |
-```
-
----
-
-## Right-path reminder
-
-Registers exist to **reduce rework**, not to bureaucratize. If a field does not help prioritize or verify, drop it for the session.
-
----
+A weak dimension cannot be averaged away. If acceptance reveals a new viable
+theme, re-enter at Read with the new evidence. If it only restates a rejected or
+resolved concern, stop.
 
 ## Final response mapping
 
-Map closing user message to register subset:
+Report:
 
-- `done` + verification notes
-- `accepted` not yet `done` → backlog handoff
-- `wontfix` with reasons only if user cares about rejected ideas
+- completed theme_keys and user-visible outcome;
+- verification actually performed;
+- residual risk when material;
+- configuration or run instructions when useful; and
+- a concise ledger summary when auditability matters.
+
+Do not dump every raw reviewer comment unless the user asks.

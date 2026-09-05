@@ -239,7 +239,7 @@ Use this file when sampling roles or biasing coverage: each section lists **fail
 
 ## Real-time collaboration (docs, whiteboards, co-editing)
 
-- **Conflict algorithms:** CRDT vs OT; undo/redo across peers; cursor presence not leaking private doc titles.
+- **Conflict algorithms:** CRDT vs OT; undo/redo across peers; collaborator pointer presence not leaking private doc titles.
 - **Permissions:** share link scope; guest vs member; comment-only vs edit.
 - **Export:** lossless export; version history retention promises match storage.
 

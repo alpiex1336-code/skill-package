@@ -4,7 +4,7 @@
 
 | Name | Typical jobs in product iteration | Risks / notes |
 |------|-------------------------------------|---------------|
-| **GitHub** | Source, Issues, Projects, Actions, Codespaces, Packages (artifact registries), Advisory DB | Secret scanning; fork license confusion; Actions minute billing; do not confuse GitHub Packages with this Cursor **skill package** folder. |
+| **GitHub** | Source, Issues, Projects, Actions, Codespaces, Packages (artifact registries), Advisory DB | Secret scanning; fork license confusion; Actions minute billing; do not confuse GitHub Packages with this Codex **skill package** folder. |
 | **GitLab / Bitbucket** | Same class as GitHub; some orgs self-host | Runner security; upgrade cadence. |
 | **Vercel** | Next.js previews, edge functions, analytics | Bandwidth billing; serverless limits; env var blast radius. |
 | **Netlify** | Static + serverless, forms, split testing | Function cold starts; identity bridging. |
@@ -20,6 +20,6 @@
 | **OpenAI / Anthropic / etc. dashboards** | Key rotation, usage caps, eval logs | Spend caps; logging of customer data toggles. |
 | **Linear / Jira / Height** | Issue hygiene, release tracking | Field entropy; automation noise. |
 | **Sentry / Datadog / Honeycomb** | Errors, APM, traces | PII scrubbing; sampling; cost. |
-| **Cursor / IDE agents** | Local iteration (this environment) | Workspace trust; command allowlists. |
+| **Codex / IDE agents** | Local iteration and delegated review | Workspace trust; command allowlists. |
 
 **Rule:** If the product does not use a row, **do not** drag it into the conversation—toolchain tourism fails the Work Filter.

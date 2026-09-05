@@ -1,6 +1,12 @@
-# Prompt Upgrade — reference word banks (English)
+# Deep-Harness — reference word banks (English)
 
-Use these lists to **sample Slot A (lens)** and **Slot B (stance)** when running the Stochastic Role Orchestra—plus **Slot C (optional)** for **tool / MCP / plugin / hook** surfaces and **Slot D (optional)** for **installed Cursor Agent Skill** instruction packages when (and only when) they are **actually available** in the session. Each composed label is at least **`[Slot A][Slot B]`**; add **`[Slot C]`** only when justified by task fit **and** confirmed tool capability; add **`[Slot D]`** only after the skill is installed, fully read, guideline-recorded, and relevant—see **Slot C** and **Slot D** sections below. For definitions of *snapshot*, *theme_key*, *orchestra wave*, see **Lexicon** in `SKILL.md`. For **how** `SKILL.md` text stays **precise**, **clear**, and **aligned** with YAML and triggers (AI / indexer discoverability), see **Language policy** → *Precision, clarity, and discoverability* in `SKILL.md`. For **how many roles**, **merge overlaps** (`theme_key`), **priority tiers (P0 / P1 / P2)**, and **when to stop**, see **Execution contract** and **Convergence** in `SKILL.md`, and the section **Priority tiers** below. Different titles and lenses imply different **domains of strength** (what that subagent should stress—security, copy, audio, deploy, etc.). Treat banks as expandable memory: add domain-specific terms as products diversify. **Keep new entries in English** for searchability; describe locale expertise with plain phrases (`CJK typography`, `RTL layout`, `diacritic sorting`).
+Use these lists to sample Slot A (lens) and Slot B (stance) for the Stochastic
+Role Orchestra, plus optional Slot C for verified tool surfaces and optional
+Slot D for installed Codex Agent Skill instructions. Every composed label uses
+at least [Slot A][Slot B]. Attach Slot C only when the tool can run in the
+current session; attach Slot D only after reading the full relevant skill.
+SKILL.md governs the lifecycle, prompt compilers, integration, and stopping.
+This file supplies expandable English vocabulary for distinct role boundaries.
 
 ## Slot A — lens / modifier / property (how to look)
 
@@ -26,7 +32,9 @@ Use these lists to **sample Slot A (lens)** and **Slot B (stance)** when running
 
 **Regional / script awareness (English labels):** RTL-aware, CJK-typography-aware, diacritics-safe, locale-sort-aware, pseudolocale-minded, collation-sensitive, plural-rule-aware, transliteration-aware
 
-**Skill / agent discovery (how agents find this skill):** discovery-first, trigger-aligned, YAML-description-minded, Cursor-rules-aware, negative-keyword-sensitive (avoid confusing **`improvement_mode` = normal** (lighter) with unrelated “must-have product features” language); keep **trigger table** and YAML **description** on the **same anchor words** as `SKILL.md` *Precision, clarity, and discoverability* (no lazy synonym padding)
+**Skill / agent discovery:** discovery-first, trigger-aligned,
+YAML-description-minded, contract-consistency-aware, negative-keyword-sensitive,
+intent-faithful, prompt-compiler-aware
 
 ## Slot B — stance holder / persona / title (who looks)
 
@@ -54,19 +62,22 @@ Use these lists to **sample Slot A (lens)** and **Slot B (stance)** when running
 
 ## Slot C — tool / integration surfaces (optional)
 
-Slot C names **tools, MCP servers, IDE plugins, CLI hooks, or integrations** that a subagent **may** use **when the Snapshot shows they exist** (MCP connected in Cursor, plugin enabled, binary on `PATH`, user confirmed access). It is **not** a third persona—only a **capability hint** for that pass.
+Slot C names tools, MCP servers, IDE plugins, CLI hooks, or integrations that a
+subagent may use when the Snapshot confirms availability. It is a capability
+hint, not a third persona.
 
 ### Availability rule (read first)
 
 - **Never** attach a Slot C token to a composed role **unless** that tool can **actually run** in this environment for this session.
 - If the skill bank lists a tool the user does **not** have, **do not pretend** it ran: **omit Slot C** and **tell the user prominently** (early in the reply or a short callout) that the step was skipped or downgraded because the integration is missing—then continue with whatever **is** available (plain files, shell, browser, etc.).
-- Users may **append their own** MCP/plugin names to this bank over time; prefer **exact** names from the workspace or Cursor config when known.
+- Users may append their own MCP or plugin names; prefer exact names from the
+  active workspace or host configuration.
 
 ### Seed tokens (common; extend freely)
 
 **Design / product:** Figma, Figma plugin, Figma MCP, FigJam
 
-**Editor / agent host:** Cursor, VS Code, Cursor Rules, `.cursor/hooks`
+**Editor / agent host:** Codex, VS Code, hooks
 
 **Repos / CI:** GitHub, GitHub MCP, GitHub Actions, GitHub CLI (`gh`), GitLab, GitLab MCP, Bitbucket
 
@@ -92,7 +103,7 @@ Slot C names **tools, MCP servers, IDE plugins, CLI hooks, or integrations** tha
 
 Pair Slot C with roles that benefit: UI craft + **Figma**; repo audit + **GitHub MCP**; incidents + **PagerDuty**; hosted DB + **Supabase** / **Neon**—**only** if present.
 
-## Slot D — installed Cursor Agent Skills (optional)
+## Slot D — installed Codex Agent Skills (optional)
 
 Slot D names **installed skill instruction packages** that may guide a pass. It is not a persona and not a callable tool. Use exact skill names or paths from the active environment, and only after reading the full `SKILL.md` in this session.
 
@@ -101,7 +112,9 @@ Slot D names **installed skill instruction packages** that may guide a pass. It 
 - **Never** attach a Slot D token from memory, a prior session, a GitHub repository name, or a skill that is merely suggested but not installed.
 - **Before** relying on a Slot D skill, read the whole skill file and record a short guideline: `use for: <what it helps with>; when to use: <trigger / scope>`.
 - Installed is necessary, not sufficient: attach Slot D only when the guideline fits the current pass.
-- Slot D skills are subordinate to `prompt-upgrade`: they can add domain procedure, but they do **not** override mode selection, orchestra gates, Work Filter, MCP schema checks, system/developer instructions, or user constraints.
+- Slot D skills are subordinate to Deep-Harness: they may add domain procedure,
+  but do not override the canonical lifecycle, prompt compilers, execution gates,
+  Work Filter, system or developer instructions, or user constraints.
 - If a user-added skill is missing, unread, or irrelevant in the current session, omit Slot D and disclose the skipped / downgraded path when material.
 
 ### User-added Slot D entries
@@ -128,9 +141,14 @@ Example format only: `ui-ux-pro-max` may be a Slot D token **only** if that exac
 ## Sampling discipline
 
 - Prefer **orthogonal** pairs (different channels) across a pass to reduce redundancy.
-- **Push role count up** while each new draw still tends to add a **new failure mode** or **thin coverage axis**; **do not** treat “sampled a few roles” as done when **thorough** intent and stop rules still warrant more—then **merge** and **filter** aggressively so volume of roles does not become volume of churn.
+- Increase role count while a new draw is likely to add a new failure mechanism
+  or cover a thin aspect class; merge and filter aggressively so reviewer volume
+  does not become implementation churn.
 - After several draws, check coverage gaps against the **target coverage set** and **P0 / P1 tiers** in [Priority tiers (P0 / P1 / P2)](#priority-tiers-p0--p1--p2--session-floor-vs-depth) below, and **bias the next draws** toward uncovered axes—stochastic, not mindless.
-- **Section hygiene:** lines prefixed **`Slot A —`** belong under **Extended Slot A**; **`Slot B —`** belong under **Extended Slot B**; **Slot C** tokens live only under **Slot C — tool / integration surfaces**; **Slot D** tokens live only under **Slot D — installed Cursor Agent Skills**—so editors do not mis-file tools as personas or skills as tools.
+- **Section hygiene:** lines prefixed **Slot A —** belong under **Extended Slot A**;
+  lines prefixed **Slot B —** belong under **Extended Slot B**; Slot C tokens live
+  only under **Slot C — tool / integration surfaces**; Slot D tokens live only
+  under **Slot D — installed Codex Agent Skills**.
 
 ---
 
@@ -140,7 +158,7 @@ The Slot A/B lists are **large** on purpose (combinatorial diversity). When “c
 
 | Tier | Meaning | How to use |
 |------|---------|------------|
-| **P0** | **Session floor** (default for **`improvement_mode` = thorough** **whole-product**): **families** of roles the run should **instantiate at least once** via a composed `[Slot A][Slot B]`. **Skip** a P0 family only if it is **out of scope** (e.g. no applicable human- or integrator-facing surface → user-craft family **N/A** or reinterpreted; **state which**) or **`improvement_mode` = normal** (lighter) + Work Filter allows a **reduced floor** (see below). |
+| **P0** | **Session floor:** applicable role families the run instantiates at least once through a composed [Slot A][Slot B]. Mark a family N/A only when the Intent Brief and target coverage set support that decision. |
 | **P1** | **High-priority bias** when the **target coverage set** in `SKILL.md` still has **gaps**—prefer roles that **map** to those gaps; often overlaps P0 families. |
 | **P2** | **Stochastic depth**—novelty, rare failure modes, extra waves after P0/P1 pressure eases. |
 
@@ -157,13 +175,10 @@ The Slot A/B lists are **large** on purpose (combinatorial diversity). When “c
 
 - **Target coverage set** — **Per-product**; **merge** P0 families into that set when you build it. P0 is a **minimum role-diversity floor**, not a replacement for the full set.
 - **Complement-bias sampling** — **After** P0, use complement-bias (and P1) for **remaining** gaps.
-- **Risk-triggered mandatory audits** ([reference-workflow-registers.md](reference-workflow-registers.md) — e.g. auth, payments, PII when in scope) — **Still required** when applicable; P0 does **not** replace them. These are separate from `SKILL.md` **Deep-upgrade procedural tier** A-F, which governs broad/all-aspects execution.
+- **Risk-triggered mandatory audits** in
+  [reference-workflow-registers.md](reference-workflow-registers.md) remain
+  required when applicable; P0 does not replace them.
 - **Reference-informed domain coverage** — When a P0 or target-set aspect is **thin** in the repo, mine open patterns (see `SKILL.md`).
-
-### Normal (lighter) mode and reduced floor
-
-- Prefer **not** to skip the **trust / correctness**-shaped P0 family if the product can cause **user harm** or **data loss**.
-- User-craft and sustainability P0 families may be **relaxed** when the user asked for **surgical / blockers-only** and the Work Filter accepts—**state** the reduction explicitly.
 
 ### P1 and P2
 

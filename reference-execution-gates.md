@@ -1,240 +1,314 @@
 # Execution gates — operational reference
 
-Companion to `SKILL.md` **NON-NEGOTIABLE EXECUTION GATES**. Load this file when **passing Gate 1 or Gate 3**—not when deciding *whether* to delegate (that is inline in `SKILL.md`).
+Companion to the governing contract in SKILL.md. This file supplies compiler
+checks, launch templates, ledger fields, and violation recovery. It does not
+define a second lifecycle.
 
----
+## Canonical order
 
-## When to open this file
+    Read
+      → Intent analysis and clarification
+        → Review Prompt Compiler
+          → Multi-role review
+            → Integrate
+              → Work Filter
+                → Edit Prompt Compiler
+                  → Edit
+                    → Verify
 
-- Starting **Orchestrate (Review)** and you need concrete Task launch patterns
-- Starting **Implement** and you need per-`theme_key` delegation templates
-- Writing the **in-session wave ledger**
-- Documenting **simulated fallback** honestly
+Load this file before compiling reviewer packets or edit packets and before the
+first in-scope artifact write.
 
----
+## Runtime-first probe
 
-## Gate 1 — Orchestra wave recipes
+At the start of reviewer orchestration:
 
-### Runtime-first probe (start of every product pass)
+1. Check whether runtime subagent or equivalent delegation tooling is available.
+2. If available, launch multiple independent reviewers with distinct composed
+   labels and linted Review Prompt Packets.
+3. If unavailable or blocked, record the reason in the ledger and run labeled
+   simulated passes using the same packets.
+4. Never treat one blended internal monologue as multi-role review.
 
-```
-1. Is Cursor Task tool (or equivalent delegation) available in this environment?
-   YES → proceed to parallel launches below
-   NO  → ledger: runtime_subagents: unavailable (<reason>)
-         → run simulated passes with SAME composed labels + fresh-agent rules
-```
+## Sizing by evidence, stakes, scope, and coverage
 
-### Minimum N by mode
+| Engagement | Initial composed labels | Runtime reviewers when available | Further waves |
+|---|---:|---:|---|
+| Small behavior-changing artifact | 2–4 | at least 2 | until no new viable theme_key |
+| Feature or multi-surface change | 4–8 | at least 2 in parallel | 1–3 or saturation |
+| Release, launch, or broad governance | 8–18 | parallel by independent boundary | until coverage and audits close |
+| Security incident or high-stakes change | 6–10 focused roles plus mandatory audits | parallel where safe | until acceptance holds |
 
-| Mode / scope | Min composed labels | Min runtime subagents (when Task exists) | Waves |
-|--------------|---------------------|------------------------------------------|-------|
-| Trivial single-step (explicit user scope only; thorough **not** pinned) | 2 minimum if product-touching; 0–1 **only** for non-product typo/link | 1 | 0–1 |
-| Complete-compliance / thorough pinned | 4–8+ first wave | ≥2 parallel on first wave | 1–3+ |
-| Single-axis narrow | 1–2 | 1 if product-changing | 1 |
-| Normal product pass | 2–4 | ≥1 | 1 |
-| Thorough / deep-upgrade | 4–8+ | ≥2 parallel on first wave | 1–3+ |
-| Greenfield + thorough | 4+ (feature slice band) | ≥1 before first product file | 1+ |
+These are starting bands, not quotas. Add roles when a new draw is likely to
+cover a missing aspect class or failure mechanism. Stop on evidence, not volume.
 
-See [reference-workflow-registers.md](reference-workflow-registers.md) *Orchestra session sizing* for stakes bands.
+## Intent Brief readiness check
 
-### Parallel Task launch pattern
+Before compiling reviewer packets, confirm that the Intent Brief contains:
 
-Launch **independent** subagents in **one parent message** (parallel tool calls). Each prompt **must** include:
+- a stable intent_brief_id;
+- explicit request, artifact, audience, and desired outcome;
+- a deeper-purpose hypothesis tied to observed evidence and confidence;
+- named pain points;
+- success criteria and observable evidence;
+- constraints, non-goals, and protected invariant;
+- observed evidence separated from assumptions and unknowns; and
+- resolution of any question that could materially change direction, safety,
+  scope, or acceptance.
 
-1. **Composed label** as persona: `[Slot A][Slot B]`
-2. **Purpose / why launched** — what this pass should protect or discover
-3. **Capability boundary** — the aspect class or domain of strength to stress
-4. **Snapshot context packet** — artifact, relevant files / URLs / excerpts, mode, constraints, known unknowns
-5. **Relevant skill instructions** — gates, Work Filter, companion references, domain notes, and Slot D skill guideline(s) that apply to this pass
-6. **Evidence hooks** — facts, checks, routes, standards, or snippets the subagent should anchor to
-7. **Output contract** — tagged bullets only; bounded findings; no implementation unless asked
-8. **Return** — findings + `theme_key` suggestions + verification gaps
+If a field is unavailable, mark it unknown. Do not invent it. Ask the user only
+for a direction-changing unresolved choice.
 
-**Example prompt skeleton:**
+## Review Prompt Compiler
 
-```markdown
-You are [privacy-first, offline-advocate][security champion] reviewing <artifact>.
+Compile one packet per reviewer from the same immutable Intent Brief and Snapshot.
+The distinct boundary and targeted questions change by role; facts and protected
+constraints do not.
 
-MODE: thorough | SCOPE: <one line>
-Purpose: find privacy / local-data risks before integration.
-Capability boundary: stress ONLY local data handling, API key storage, OCR privacy.
+### Review Prompt Packet template
 
-Snapshot context:
-- Artifact / files: <paths or pasted excerpt summary>
-- Constraints: <user constraints, north-star invariant, non-goals>
-- Known unknowns: <what is not in context>
+    review_prompt_id: RPP-<wave>-<role>
+    intent_brief_id: <id>
+    composed_role: [Slot A][Slot B][optional Slot C][optional Slot D]
 
-Relevant skill instructions:
-- Use Work Filter; propose only non-redundant, scoped findings.
-- Do not implement; this is Gate 1 review input.
-- If Slot D is attached, include the read-derived skill guideline (`use for` + `when to use`) and do not rely on unread skills.
+    PURPOSE
+    Why this reviewer is launched and which Intent Brief pain point, criterion,
+    or coverage gap it should protect or challenge.
 
-Evidence hooks:
-- Cite exact observed file/section, command output, screenshot, or missing evidence.
+    SHARED IMMUTABLE CONTEXT
+    Artifact and audience:
+    Explicit request and desired outcome:
+    Deeper-purpose hypothesis, evidence, confidence:
+    Protected invariant:
+    Constraints and non-goals:
+    Snapshot evidence:
+    Assumptions and unknowns:
 
-Return:
-- 3–8 numbered findings tagged [privacy-first, offline-advocate][security champion]
-- Suggested theme_keys for integration
-- Verification gaps or checks that would confirm/reject the finding
-- Do NOT implement; do NOT merge other roles' views
-```
+    DISTINCT ROLE BOUNDARY
+    Domain of strength:
+    Included surfaces:
+    Excluded surfaces:
+    Why this boundary is orthogonal to the other packets:
 
-### Subagent type routing (Cursor Task tool)
+    TARGETED QUESTIONS
+    1. <question tied to a pain point, criterion, or coverage gap>
+    2. <question that asks for contrary evidence or a failure mechanism>
+    3. <question that identifies a fitting verification check>
 
-| Need | subagent_type |
-|------|----------------|
-| Codebase search, file patterns | `explore` |
-| Shell, build, git, CI | `shell` |
-| General review, multi-file reasoning | `generalPurpose` |
-| Skill package / governance edits | `generalPurpose` with meta-orchestra label |
+    EVIDENCE REQUIREMENTS
+    Cite exact files, sections, observed behavior, command output, screenshots,
+    standards, or explicitly missing evidence. Separate observation from inference.
 
----
+    FORBIDDEN ASSUMPTIONS AND ACTIONS
+    Do not infer private user motives. Do not implement, merge other roles,
+    expand scope, invent tool results, or present the deeper-purpose hypothesis
+    as fact.
 
-## Gate 2 — Integration checklist
+    OUTPUT CONTRACT
+    Return 3–8 numbered findings. Each must include composed_role, finding_id,
+    linked criterion or pain_point, evidence, confidence, suggested theme_key,
+    and verification gap. Do not synthesize or edit.
 
-Before any in-scope artifact file write:
+### Review packet lint
 
-- [ ] Raw subagent outputs collected with composed labels visible
-- [ ] Findings merged into **`theme_key`** rows (hash-map dedup)
-- [ ] Conflicts between roles explicitly resolved
-- [ ] Work Filter applied — most raw findings **rejected**
-- [ ] Action register has ≥1 row with `status: accepted` **or** honest zero-adopt stop documented
+Block launch when any answer is yes:
 
----
+- Does the packet lack an intent_brief_id or criterion/pain-point link?
+- Does it alter shared facts or constraints?
+- Does it rely on an unsupported motive or capability?
+- Are its questions generic enough to fit any artifact unchanged?
+- Is its role boundary indistinguishable from another packet except for the label?
+- Does it omit evidence requirements, forbidden actions, or the output contract?
+- Could its output not enter the trace chain as a finding_id?
 
-## Gate 3 — Implement delegation
+Record PASS or FAIL and the corrected packet id in the ledger.
 
-**Forbidden pattern:** Review subagents run → parent implements everything inline.
+## Runtime launch pattern
 
-**Required pattern:** One runtime subagent per **accepted** `theme_key` (batch only with ledger disclosure).
+Launch independent packets in parallel when their boundaries do not depend on one
+another. Every launched prompt includes the full packet and relevant excerpts or
+paths a fresh reviewer needs. Each reviewer returns only its bounded output.
+Reject unlabeled findings, invented evidence, and cross-role synthesis.
 
-### Per-theme prompt skeleton
+For skill-package governance, useful orthogonal pairs include:
 
-Each Gate 3 prompt implements **one accepted `theme_key`** unless batching is explicitly recorded in the ledger. Prompts must include purpose, context packet, role capability, relevant skill instructions, constraints, evidence hooks, verification expectation, and a strict **no-cross-theme / no-synthesis** boundary.
+- [maintainability-first, structural-dedup-minded][information architect]
+- [execution-contract-enforcing][process auditor]
+- [intent-faithful, uncertainty-explicit][prompt engineer]
+- [verification-first, contradiction-seeking][acceptance reviewer]
 
-```markdown
-You are [implementation-focused][<stance matching theme>] implementing ONE theme only.
+Labels are examples, not a fixed roster.
 
-theme_key: <id>
-Accepted action: <one line from register>
-Purpose: implement the accepted row because <why this row passed Work Filter>.
-Role capability: <why this stance is suited to this row; one domain boundary>
+## Integration and Work Filter checklist
 
-Snapshot context:
-- Artifact / files: <paths, snippets, current behavior, relevant constraints>
-- Prior accepted evidence: <role findings or references that justified this row>
-- Known unknowns: <what not to assume>
+Before compiling any Edit Prompt Packet:
 
-Relevant skill instructions:
-- Preserve Work Filter, north-star invariant, Snapshot honesty.
-- Apply only Gate 3 for this theme; do not re-run synthesis.
-- If Slot D is attached, include the read-derived skill guideline and apply it only within this accepted `theme_key`.
+- [ ] All accepted raw findings have composed labels and finding_ids.
+- [ ] Each finding traces to a Review Prompt Packet and criterion or pain point.
+- [ ] Findings are merged into non-duplicative theme_key rows.
+- [ ] Conflicts are resolved explicitly using evidence and impact.
+- [ ] The Work Filter is applied to integrated rows, not raw comments.
+- [ ] Accepted rows have evidence, scope, acceptance criteria, and verification.
+- [ ] Rejected rows retain a reason.
+- [ ] An honest zero-adopt stop is recorded if no row passes.
 
-Constraints:
-- Minimal scoped diff; match repo/document conventions.
-- North-star invariant: <line>
-- No unrelated files; no new doctrine section unless accepted action requires it.
+## Edit Prompt Compiler
 
-Evidence hooks:
-- Re-read changed areas; preserve named vocabulary and anchors.
-- Verification expectation: <command, static read, link check, or manual review>
+Compile one packet per accepted theme_key. Batch only tightly coupled themes whose
+implementation or verification cannot be separated; record the dependency reason.
 
-Boundaries:
-- Implement ONLY this theme_key.
-- Do NOT merge other theme_keys.
-- Do NOT synthesize new governance direction; if you find a new theme, report it as a proposed follow-up instead of editing it.
+### Edit Prompt Packet template
 
-Return:
-- Files changed
-- Summary of exact edits
-- Verification run / not run
-- Gaps, residual risk, or proposed new theme_key if discovered
-```
+    edit_prompt_id: EPP-<theme>
+    intent_brief_id: <id>
+    theme_key: <id>
+    source_review_prompt_ids: <ids>
+    source_finding_ids: <ids>
 
-### Batching rules
+    PAIN POINT AND EVIDENCE
+    Criterion or pain point:
+    Failure mechanism:
+    Accepted evidence:
+    Why the row passed the Work Filter:
 
-Batch multiple `theme_key`s in one subagent **only when**:
+    TARGET
+    Files or surfaces:
+    Current behavior:
+    Desired outcome:
 
-- Changes are tightly coupled (same file, same dependency chain)
-- Ledger records: `gate3_batch: [theme_a, theme_b] — reason: <dependency>`
+    BOUNDARIES
+    In scope:
+    Non-goals:
+    Protected invariant:
+    No-cross-theme rule:
+    No unrelated files or behavior:
 
----
+    ACCEPTANCE
+    Acceptance criteria:
+    Verification plan:
+    Evidence to return:
+    Residual-risk handling:
 
-## Gate 4 — Wave ledger template
+    EXECUTION
+    Implement only this theme_key.
+    Match repository or document conventions.
+    If a new issue appears, report a proposed finding_id; do not edit it.
+    Return changed artifacts, exact changes, verification performed, and gaps.
 
-Start this block **in the first reply that completes orchestra**—append each wave. **Do not defer to final reply only.**
+### Edit packet completeness and contradiction lint
 
-```markdown
-## Wave ledger
+Block delegation when any answer is yes:
 
-### wave_1
-- **sampled_labels:** `[lens][stance]`, `[lens][stance]`, …
-- **runtime:** Task × N | simulated (reason: …)
-- **theme_keys merged:** `theme-a`, `theme-b`
-- **adopted:** `theme-a` (why); `theme-b` (rejected — churn)
-- **verification:** (pending | command/run | not run — why)
-- **skipped/substitute:** tier B runtime if applicable
+- Is the theme absent from the accepted register?
+- Does any source id or trace link fail to resolve?
+- Is the pain point vague, unsupported, or detached from the Intent Brief?
+- Are files or surfaces, desired outcome, or scope missing?
+- Does the requested change contradict a constraint, non-goal, protected invariant,
+  or another accepted packet?
+- Are acceptance criteria subjective or unverifiable?
+- Is verification absent or incapable of proving the desired outcome?
+- Could the agent implement another theme without violating the packet?
+- Does batching hide separable themes?
 
-### wave_2
-…
-```
+The parent records PASS or FAIL before launch. A failed packet is corrected, not
+delegated.
 
----
+## Delegated Edit rule
 
-## Simulated fallback — honesty script
+When runtime delegation exists, every accepted theme must be implemented by a
+delegated implementation agent operating under its linted Edit Prompt Packet.
+One agent may implement multiple themes only when they are tightly coupled and
+the ledger records the dependency reason and packet ids. The parent may read,
+compile, integrate, filter, lint, coordinate, and verify; it may not implement
+accepted themes inline after using subagents only as reviewers.
 
-Use **only** when Task/delegation is unavailable or blocked:
+When delegation is unavailable, the ledger records the blocker and substitute
+path before parent implementation. The parent then follows the same linted packet,
+scope, no-cross-theme, trace, and verification obligations.
 
-```markdown
-**Runtime honesty:** Task tool unavailable (<reason: e.g. user rule forbids Task, environment error>).
-**Substitute:** Simulated fresh-agent passes for labels: [list].
-**Same discipline:** bounded tagged outputs → integrate → adopt.
-**Residual risk:** No independent process isolation; findings may correlate more than runtime subagents.
-```
+## Wave ledger template
 
-**Never** use simulated fallback when Task ran successfully for other work in the same session but orchestra was skipped for convenience.
+Create this ledger in-session before Edit and update it through Verify:
 
----
+    wave_id: wave_<n>
+    intent_brief_id: <id>
+    coverage_set: <aspect ids>
+    applicable_P0: <families or N/A with reason>
+    review_prompt_ids:
+      - <id>: <composed label> — lint PASS
+    runtime: subagents × N | simulated substitute because <reason>
+    findings: <finding_ids>
+    merged_theme_keys: <ids>
+    adoption:
+      - <theme>: accepted or rejected — Work Filter reason
+    edit_prompt_ids:
+      - <id>: <theme> — lint PASS or FAIL
+    delegation: <agent mapping or recorded blocker>
+    trace_status: PASS | FAIL
+    verification_ids: <ids or pending>
+    residual_risk: <honest gaps>
+    saturation_status: continue | stop — <evidence>
 
-## Anti-patterns (operational)
+The ledger may point to stored packets rather than duplicating their full text.
 
-| Anti-pattern | Fix |
-|--------------|-----|
-| Read skill → TodoWrite(implement) → Write files | Stop; PRE-FLIGHT; Gate 1 Orchestra wave |
-| “I'll mention orchestra in the **wave ledger** summary only” | **Wave ledger** row before first in-scope artifact edit |
-| One subagent, no **composed role label** | Add `[Slot A][Slot B]` to prompt; relaunch |
-| Parent plays all roles in one paragraph | Parallel **Task tool** launches with distinct labels |
-| **Review (skill sense)** only → parent **Implement** inline | Gate 3: one runtime subagent per Work Filter–accepted **Quintessence row** |
-| Thorough user request treated as “style preference” | Pin thorough + Gate checklist |
-| Thorough + Task exists + zero Task calls | **Hard stop**; run Gate 1 runtime wave before any write |
-| “Follow skill completely” but PRE-FLIGHT scale-down | Pin thorough; reload **Zero-skip** companion |
-| Parent implements after review-only subagents | Gate 3 per `theme_key`; parent halts writes |
+## Trace guard
 
----
+Before Edit, verify:
+
+    intent_brief_id
+      → criterion or pain_point
+        → review_prompt_id
+          → finding_id
+            → theme_key
+              → edit_prompt_id
+                → planned changed artifact
+
+After Verify, append verification_id. An unresolved or orphan link blocks the
+associated change from implementation or acceptance.
+
+## Verification and independent acceptance
+
+Run checks proportionate to the artifact:
+
+- project-standard format, type, test, build, or static checks when present;
+- manual or browser smoke checks for important visible flows;
+- document link, heading, terminology, and contradiction checks for governance;
+- security, privacy, accessibility, performance, or compliance checks when their
+  risk surfaces apply.
+
+Then launch a fresh acceptance reviewer when runtime delegation is available. Its
+prompt receives the Intent Brief, accepted packets, changed artifacts, acceptance
+criteria, and verification output, but not a request to defend the implementation.
+It must try to disprove success and return verification_ids, failed criteria,
+or residual risks. State any substitute when independent execution is unavailable.
+
+## Violation detectors and recovery
+
+| Violation | Required recovery |
+|---|---|
+| Artifact write before Intent Brief and reviewer packets | Halt; return to Read |
+| Generic reviewer prompts differing only by label | Recompile and relint packets |
+| Raw finding implemented without integration and Work Filter | Revert the proposal path; create a theme row |
+| Ledger first appears after Edit begins | Halt; reconstruct the ledger from evidence before continuing |
+| Parent implements any accepted theme while delegation exists | Halt; map every accepted theme to a delegated packet or documented tight batch |
+| Edit packet lacks trace or acceptance criteria | Block launch; correct and relint |
+| Orphan changed artifact | Do not accept; restore trace or remove the unrelated change |
+| Verification claim without evidence | Correct the claim and record the gap |
+
+Recovery never fabricates missing evidence. Resume only when the affected gate
+passes and the ledger records the repair.
 
 ## PRE-FLIGHT quick copy
 
-```
-PRE-FLIGHT — product work gate
-1. SCOPE: … | North-star: …
-2. MODE: normal | thorough
-3. COVERAGE: [aspect classes] | P0: …
-4. ORCHESTRA: N=… labels planned | Task: Y/N
-5. ORDER: integrate → adopt before implement
-6. LEDGER: wave_1 reserved
-7. FILTER: no implement todos pre-adopt
-8. COMPLIANCE: complete-compliance pin? [Y/N] → if Y: thorough locked; Gate 0 closed; parent Implement banned when Task exists
-GATE: PASS | FAIL (items 4–8)
-```
+    PRE-FLIGHT
+    1. SCOPE: artifact, audience, protected invariant
+    2. INTENT: intent_brief_id; unresolved direction-changing questions
+    3. COVERAGE: target set; P0; gaps
+    4. REVIEW: packet ids and lint; runtime or substitute
+    5. INTEGRATION: theme_keys and Work Filter decisions
+    6. LEDGER: in-session location
+    7. EDIT: packet ids and lint; delegation mapping
+    8. TRACE: PASS or unresolved links
+    ORCHESTRA GATE: PASS | FAIL
 
----
-
-## Skill-targeting (meta) work
-
-Edits to `SKILL.md` and `reference-*.md` use the **same gates**:
-
-- **Gate 1:** meta-orchestra with ≥2 orthogonal labels (e.g. `[execution-contract-enforcer][process auditor]`, `[information-architect][taxonomy writer]`)
-- **Gate 2:** integrate meta-findings into `theme_key` rows before line edits
-- **Gate 4:** wave ledger in reply documenting what changed and why
-
-Trivial typo fixes may scale down PRE-FLIGHT with one-line disclosure.
+If FAIL, do not edit.
